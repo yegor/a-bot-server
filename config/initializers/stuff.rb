@@ -1,1 +1,1 @@
-Phoenix.application.logger.debug "Stuff initializer (config = #{ config }) has run!"
+application.logger.debug "Stuff initializer (config = #{ config }) has run!"

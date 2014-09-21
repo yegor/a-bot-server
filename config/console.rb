@@ -1,6 +1,9 @@
-ENV["PHOENIX_ENV"] ||= "development"
+ENV["PHOENIX_ENV"]  ||= "development"
 ENV["PHOENIX_ROOT"] ||= File.expand_path( File.join(__FILE__, "..", "..") )
+ENV["CONSOLE"]      = "true"
 
 require "phoenix/boot.rb"
+require "irb"
 
-sleep
+IRB.start(__FILE__)
+
