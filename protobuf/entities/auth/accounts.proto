@@ -1,0 +1,18 @@
+package entities.auth;
+
+import "messages/auth/user.proto";
+import "messages/common/mailbox.proto";
+
+message LoginRequest {
+  required string email     = 1;
+  required string password  = 2;
+}
+
+message LoginResponse {
+  required messages.auth.User     user    = 1;
+  required messages.common.Mailbox  account = 2;
+}
+
+service Accounts {
+  rpc Login (LoginRequest) returns (LoginResponse);
+}

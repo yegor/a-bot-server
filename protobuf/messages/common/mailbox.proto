@@ -1,0 +1,6 @@
+package messages.common;
+
+message Mailbox {
+  required string entity    = 1;
+  required string id        = 2;
+}

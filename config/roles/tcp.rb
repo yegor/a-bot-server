@@ -4,6 +4,10 @@ application.on(:start) do
       server.start(lambda do |connection, call|
         puts "!!! Received a packet via TCP"
         p call
+
+        sleep 5.0
+
+        connection.send( call )
       end)
     end
   end
