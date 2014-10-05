@@ -11,3 +11,12 @@
 
   4.  Fetch all required gems
       $> bundle
+
+  5.  Install zookeeper
+      $> brew install zookeeper
+
+  6.  Install 0mq
+      $> brew install 0mq
+
+  7.  Install redis
+      $> brew install redis
