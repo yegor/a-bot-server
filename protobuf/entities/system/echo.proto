@@ -1,0 +1,28 @@
+package entities.system;
+
+import "messages/common/mailbox.proto";
+
+message EchoRequest {
+  required string phrase = 1;
+}
+
+message EchoResponse {
+  required string value = 1;
+}
+
+message PingRequest {
+  required int64 time = 1;
+}
+
+message PingResponse {
+  required int64 value = 1;
+}
+
+message HandleRequest {
+}
+
+service Echo {
+  rpc Ask (EchoRequest) returns (EchoResponse);
+  rpc Ping (PingRequest) returns (PingResponse);
+  rpc Handle (HandleRequest) returns (messages.common.Mailbox);
+}
