@@ -1,28 +1,16 @@
 package entities.system;
 
-import "messages/common/mailbox.proto";
-
-message EchoRequest {
-  required string phrase = 1;
+message ManyEntities {
+  repeated entities.system.Handle handles = 1;
 }
 
-message EchoResponse {
-  required string value = 1;
-}
+entity Echo {
+  client Notify (string name, int32 data);
+  client Handled (entities.system.Handle handle);
 
-message PingRequest {
-  required int64 time = 1;
-}
-
-message PingResponse {
-  required int64 value = 1;
-}
-
-message HandleRequest {
-}
-
-service Echo {
-  rpc Ask (EchoRequest) returns (EchoResponse);
-  rpc Ping (PingRequest) returns (PingResponse);
-  rpc Handle (HandleRequest) returns (messages.common.Mailbox);
+  server Ask (string question) returns string;
+  server Ping (int32 time) returns int32;
+  server Handle () returns entities.system.Handle;
+  server Handles () returns ManyEntities;
+  server Blah (entities.system.Handle handle) returns;
 }

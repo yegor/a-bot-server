@@ -10,9 +10,10 @@ module Entities
 
       presence :global
 
-      #  Increments a counter.
+      #  Result is:
+      #    int32
       #
-      def increment(request)
+      def increment
         @counter ||= 0
         @counter += 1
       end

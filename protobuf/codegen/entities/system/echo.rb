@@ -6,37 +6,76 @@ require 'protocol_buffers'
 module Entities
   module System
     # forward declarations
-    class EchoRequest; include ProtocolBuffers::Message; end
-    class EchoResponse; include ProtocolBuffers::Message; end
-    class PingRequest; include ProtocolBuffers::Message; end
-    class PingResponse; include ProtocolBuffers::Message; end
-    class HandleRequest; include ProtocolBuffers::Message; end
+    class ManyEntities; include ProtocolBuffers::Message; end
+    class ClientEchoNotifyRequestMessage; include ProtocolBuffers::Message; end
+    class ClientEchoHandledRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoAskRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoAskResponseMessage; include ProtocolBuffers::Message; end
+    class ServerEchoPingRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoPingResponseMessage; include ProtocolBuffers::Message; end
+    class ServerEchoHandleRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoHandleResponseMessage; include ProtocolBuffers::Message; end
+    class ServerEchoHandlesRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoHandlesResponseMessage; include ProtocolBuffers::Message; end
+    class ServerEchoBlahRequestMessage; include ProtocolBuffers::Message; end
 
-    class EchoRequest
-      required :string, :phrase, 1
+    class ManyEntities
+      repeated ::Phoenix::Messages::Mailbox, :handles, 1, :entity => "Entities::System::Handle" 
     end
 
-    class EchoResponse
+    class ClientEchoNotifyRequestMessage
+      required :string, :name, 1
+      required :int32, :data, 2
+    end
+
+    class ClientEchoHandledRequestMessage
+      required ::Phoenix::Messages::Mailbox, :handle, 1, :entity => "Entities::System::Handle" 
+    end
+
+    class ServerEchoAskRequestMessage
+      required :string, :question, 1
+    end
+
+    class ServerEchoAskResponseMessage
       required :string, :value, 1
     end
 
-    class PingRequest
-      required :int64, :time, 1
+    class ServerEchoPingRequestMessage
+      required :int32, :time, 1
     end
 
-    class PingResponse
-      required :int64, :value, 1
+    class ServerEchoPingResponseMessage
+      required :int32, :value, 1
     end
 
-    class HandleRequest
+    class ServerEchoHandleRequestMessage
+    end
+
+    class ServerEchoHandleResponseMessage
+      required ::Phoenix::Messages::Mailbox, :value, 1, :entity => "Entities::System::Handle" 
+    end
+
+    class ServerEchoHandlesRequestMessage
+    end
+
+    class ServerEchoHandlesResponseMessage
+      required ::Entities::System::ManyEntities, :value, 1
+    end
+
+    class ServerEchoBlahRequestMessage
+      required ::Phoenix::Messages::Mailbox, :handle, 1, :entity => "Entities::System::Handle" 
     end
 
     class Echo
     include ProtocolBuffers::Service
 
-      rpc :ask, "Ask", ::Entities::System::EchoRequest, ::Entities::System::EchoResponse
-      rpc :ping, "Ping", ::Entities::System::PingRequest, ::Entities::System::PingResponse
-      rpc :handle, "Handle", ::Entities::System::HandleRequest, ::Messages::Common::Mailbox
+      client_rpc :notify, "Notify", ::Entities::System::ClientEchoNotifyRequestMessage, ::Phoenix::Messages::Void
+      client_rpc :handled, "Handled", ::Entities::System::ClientEchoHandledRequestMessage, ::Phoenix::Messages::Void
+      rpc :ask, "Ask", ::Entities::System::ServerEchoAskRequestMessage, ::Entities::System::ServerEchoAskResponseMessage
+      rpc :ping, "Ping", ::Entities::System::ServerEchoPingRequestMessage, ::Entities::System::ServerEchoPingResponseMessage
+      rpc :handle, "Handle", ::Entities::System::ServerEchoHandleRequestMessage, ::Entities::System::ServerEchoHandleResponseMessage
+      rpc :handles, "Handles", ::Entities::System::ServerEchoHandlesRequestMessage, ::Entities::System::ServerEchoHandlesResponseMessage
+      rpc :blah, "Blah", ::Entities::System::ServerEchoBlahRequestMessage, ::Phoenix::Messages::Void
     end
   end
 end

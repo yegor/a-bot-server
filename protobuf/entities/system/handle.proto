@@ -1,12 +1,5 @@
 package entities.system;
 
-message IncrementRequest {
-}
-
-message IncrementResponse {
-  required int64 value = 1;
-}
-
-service Handle {
-  rpc Increment (IncrementRequest) returns (IncrementResponse);
+entity Handle {
+  server Increment () returns int32;
 }

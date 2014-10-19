@@ -6,20 +6,20 @@ require 'protocol_buffers'
 module Entities
   module System
     # forward declarations
-    class IncrementRequest; include ProtocolBuffers::Message; end
-    class IncrementResponse; include ProtocolBuffers::Message; end
+    class ServerHandleIncrementRequestMessage; include ProtocolBuffers::Message; end
+    class ServerHandleIncrementResponseMessage; include ProtocolBuffers::Message; end
 
-    class IncrementRequest
+    class ServerHandleIncrementRequestMessage
     end
 
-    class IncrementResponse
-      required :int64, :value, 1
+    class ServerHandleIncrementResponseMessage
+      required :int32, :value, 1
     end
 
     class Handle
     include ProtocolBuffers::Service
 
-      rpc :increment, "Increment", ::Entities::System::IncrementRequest, ::Entities::System::IncrementResponse
+      rpc :increment, "Increment", ::Entities::System::ServerHandleIncrementRequestMessage, ::Entities::System::ServerHandleIncrementResponseMessage
     end
   end
 end
