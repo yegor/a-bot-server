@@ -17,6 +17,3 @@
 
   6.  Install 0mq
       $> brew install 0mq
-
-  7.  Install redis
-      $> brew install redis
