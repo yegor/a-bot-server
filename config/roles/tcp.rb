@@ -6,4 +6,5 @@ application.on(:start) do
   end
 
   ::Entities::System::Echo.new
+  ::Entities::System::Match.new
 end
