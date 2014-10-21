@@ -9,6 +9,8 @@ module Entities
     #
     #  notify( string name, int32 data )
     #  handled( Entities::System::Handle handle )
+    #  notify( string name, int32 data )
+    #  handled( Entities::System::Handle handle )
     #
 
     class Echo
@@ -45,7 +47,7 @@ module Entities
       end
 
       #  Result is:
-      #    Entities::System::ManyEntities
+      #    Entities::System::ManyEntities( Entities::System::Handle[] handles )
       #
       def handles
         h = Entities::System::Handle.new
