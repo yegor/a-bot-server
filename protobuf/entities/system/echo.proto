@@ -13,4 +13,6 @@ entity Echo {
   server Handle () returns entities.system.Handle;
   server Handles () returns ManyEntities;
   server Blah (entities.system.Handle handle) returns;
+
+  server GimmeTest() returns string;
 }

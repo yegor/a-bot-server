@@ -18,6 +18,8 @@ module Entities
     class ServerEchoHandlesRequestMessage; include ProtocolBuffers::Message; end
     class ServerEchoHandlesResponseMessage; include ProtocolBuffers::Message; end
     class ServerEchoBlahRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoGimmeTestRequestMessage; include ProtocolBuffers::Message; end
+    class ServerEchoGimmeTestResponseMessage; include ProtocolBuffers::Message; end
 
     class ManyEntities
       repeated ::Phoenix::Messages::Mailbox, :handles, 1, :entity => "Entities::System::Handle" 
@@ -66,6 +68,13 @@ module Entities
       required ::Phoenix::Messages::Mailbox, :handle, 1, :entity => "Entities::System::Handle" 
     end
 
+    class ServerEchoGimmeTestRequestMessage
+    end
+
+    class ServerEchoGimmeTestResponseMessage
+      required :string, :value, 1
+    end
+
     class Echo
     include ProtocolBuffers::Service
 
@@ -76,6 +85,7 @@ module Entities
       rpc :handle, "Handle", ::Entities::System::ServerEchoHandleRequestMessage, ::Entities::System::ServerEchoHandleResponseMessage
       rpc :handles, "Handles", ::Entities::System::ServerEchoHandlesRequestMessage, ::Entities::System::ServerEchoHandlesResponseMessage
       rpc :blah, "Blah", ::Entities::System::ServerEchoBlahRequestMessage, ::Phoenix::Messages::Void
+      rpc :gimme_test, "GimmeTest", ::Entities::System::ServerEchoGimmeTestRequestMessage, ::Entities::System::ServerEchoGimmeTestResponseMessage
     end
   end
 end

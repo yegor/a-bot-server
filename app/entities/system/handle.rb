@@ -14,7 +14,7 @@ module Entities
       #    int32
       #
       def increment
-        @counter ||= 0
+        @counter ||= 100
         @counter += 1
       end
 

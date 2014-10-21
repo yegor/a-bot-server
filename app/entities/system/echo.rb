@@ -34,8 +34,7 @@ module Entities
       #    int32
       #
       def ping(time)
-        self.to( Fiber.current[:context][:connection] ).handled( handle )
-        time
+        "abc"
       end
 
       #  Result is:
@@ -61,6 +60,13 @@ module Entities
       #
       def blah(handle)
         puts handle
+      end
+
+      #  Result is:
+      #    string
+      #
+      def gimme_test
+        Entities::System::Test.new.entity_id
       end
 
     end
