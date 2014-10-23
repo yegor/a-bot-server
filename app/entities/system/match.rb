@@ -13,6 +13,7 @@ module Entities
       presence :global
 
       def initialize
+        p "INITIALIZING MATCH"
         @ololo = 10
         @state = { cells: [
           { index: 0,  player: 1, strength: 1},
