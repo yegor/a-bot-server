@@ -8,7 +8,7 @@ module Entities
     # forward declarations
     class Cell; include ProtocolBuffers::Message; end
     class MatchState; include ProtocolBuffers::Message; end
-    class ClientMatchMoveFromServerRequestMessage; include ProtocolBuffers::Message; end
+    class ClientMatchUpdateCellRequestMessage; include ProtocolBuffers::Message; end
     class ServerMatchGetMyIdRequestMessage; include ProtocolBuffers::Message; end
     class ServerMatchGetMyIdResponseMessage; include ProtocolBuffers::Message; end
     class ServerMatchGetStateRequestMessage; include ProtocolBuffers::Message; end
@@ -25,8 +25,9 @@ module Entities
       repeated ::Entities::System::Cell, :cells, 1
     end
 
-    class ClientMatchMoveFromServerRequestMessage
-      required :string, :move, 1
+    class ClientMatchUpdateCellRequestMessage
+      required :int32, :cell, 1
+      required :int32, :strength, 2
     end
 
     class ServerMatchGetMyIdRequestMessage
@@ -44,13 +45,14 @@ module Entities
     end
 
     class ServerMatchMakeMoveRequestMessage
-      required :string, :move, 1
+      required :int32, :from, 1
+      required :int32, :to, 2
     end
 
     class Match
     include ProtocolBuffers::Service
 
-      client_rpc :move_from_server, "MoveFromServer", ::Entities::System::ClientMatchMoveFromServerRequestMessage, ::Phoenix::Messages::Void
+      client_rpc :update_cell, "UpdateCell", ::Entities::System::ClientMatchUpdateCellRequestMessage, ::Phoenix::Messages::Void
       rpc :get_my_id, "GetMyId", ::Entities::System::ServerMatchGetMyIdRequestMessage, ::Entities::System::ServerMatchGetMyIdResponseMessage
       rpc :get_state, "GetState", ::Entities::System::ServerMatchGetStateRequestMessage, ::Entities::System::ServerMatchGetStateResponseMessage
       rpc :make_move, "MakeMove", ::Entities::System::ServerMatchMakeMoveRequestMessage, ::Phoenix::Messages::Void

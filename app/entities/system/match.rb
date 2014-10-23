@@ -12,18 +12,9 @@ module Entities
 
       presence :global
 
-      #  Result is:
-      #    int32
-      #
-      def get_my_id
-        raise NotImplementedError.new
-      end
-
-      #  Result is:
-      #    Entities::System::MatchState( Entities::System::Cell( int32 index, int32 player, int32 strength )[] cells )
-      #
-      def get_state
-        { cells: [
+      def initialize
+        @ololo = 10
+        @state = { cells: [
           { index: 0,  player: 1, strength: 1},
           { index: 1,  player: 1, strength: 2},
           { index: 2,  player: 1, strength: 5},
@@ -71,15 +62,31 @@ module Entities
         ]}
       end
 
+      #  Result is:
+      #    int32
+      #
+      def get_my_id
+        raise NotImplementedError.new
+      end
+
+      #  Result is:
+      #    Entities::System::MatchState( Entities::System::Cell( int32 index, int32 player, int32 strength )[] cells )
+      #
+      def get_state
+        @state
+      end
+
       #  Arguments are:
-      #    move: string
+      #    from: int32
+      #    to: int32
       #
       #  Result is:
       #    (void)
       #
-      def make_move( move )
-        p "MAKING MOVE \"#{move}\""
-        self.to(Fiber.current[:context][:connection]).move_from_server(move)
+      def make_move( from, to )
+        p "MAKING MOVE #{from} -> #{to}"
+        self.to(Fiber.current[:context][:connection]).update_cell(@ololo, 5)
+        @ololo = @ololo + 1
       end
 
     end
