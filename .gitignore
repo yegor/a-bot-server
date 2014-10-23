@@ -25,4 +25,4 @@ tmp
 *.rdb
 mkmf.log
 .rake_t_cache
-protobuf/csharp
+lib/codegen/csharp
