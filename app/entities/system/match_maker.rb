@@ -1,7 +1,7 @@
 module Entities
   module System
 
-    class Matchmaker
+    class MatchMaker
 
       include ::Phoenix::Entity::Base
 

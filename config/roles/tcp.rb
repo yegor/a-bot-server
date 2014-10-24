@@ -7,4 +7,5 @@ application.on(:start) do
 
   ::Entities::System::Echo.new
   ::Entities::System::Match.new
+  ::Entities::System::MatchMaker.new
 end

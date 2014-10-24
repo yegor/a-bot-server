@@ -2,6 +2,6 @@ package entities.system;
 
 import "entities/system/match.proto";
 
-entity Matchmaker {
+entity MatchMaker {
 	server CreateMatch() returns entities.system.Match;
 }
