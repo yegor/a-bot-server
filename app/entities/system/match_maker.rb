@@ -7,6 +7,10 @@ module Entities
 
       presence :global
 
+      def initialize
+        p "INITIALIZING MATCH MAKER"
+      end
+
       #  Result is:
       #    Entities::System::Match
       #

@@ -12,6 +12,10 @@ module Entities
 
       presence :global
 
+      def entity_id
+        @entity_id ||= Celluloid.uuid
+      end
+
       def initialize
         p "INITIALIZING MATCH"
         @ololo = 10
