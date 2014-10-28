@@ -18,7 +18,6 @@ module Entities
 
       def initialize
         p "INITIALIZING MATCH"
-        @ololo = 10
         @state = { cells: [
           { index: 0,  player: 1, armySize: 1},
           { index: 1,  player: 1, armySize: 2},
@@ -94,11 +93,11 @@ module Entities
         from_cell = @state[:cells].detect { |cell| cell[:index] == from }
         to_cell   = @state[:cells].detect { |cell| cell[:index] == to   }
 
-        self.to(Fiber.current[:context][:connection]).update_cell(
-          Entities::System::Cell.new(index: @ololo, player: 1, armySize: 5)
-        )
+        to_cell[:player] = from_cell[:player]
 
-        @ololo = @ololo + 1
+        self.to(Fiber.current[:context][:connection]).update_cell(
+          Entities::System::Cell.new(index: to, player: to_cell[:player], armySize: to_cell[:armySize])
+        )
       end
 
     end
