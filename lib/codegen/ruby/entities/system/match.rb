@@ -18,7 +18,7 @@ module Entities
     class Cell
       required :int32, :index, 1
       required :int32, :player, 2
-      required :int32, :strength, 3
+      required :int32, :armySize, 3
     end
 
     class MatchState
@@ -26,8 +26,7 @@ module Entities
     end
 
     class ClientMatchUpdateCellRequestMessage
-      required :int32, :cell, 1
-      required :int32, :strength, 2
+      required ::Entities::System::Cell, :cell, 1
     end
 
     class ServerMatchGetMyIdRequestMessage

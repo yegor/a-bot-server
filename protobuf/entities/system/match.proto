@@ -3,7 +3,7 @@ package entities.system;
 message Cell {
 	required int32 index = 1;
 	required int32 player = 2;
-	required int32 strength = 3;
+	required int32 armySize = 3;
 }
 
 message MatchState {
@@ -11,7 +11,7 @@ message MatchState {
 }
 
 entity Match {
-	client UpdateCell(int32 cell, int32 strength);
+	client UpdateCell(Cell cell);
 
 	server GetMyId() returns int32;
 	server GetState() returns MatchState;
