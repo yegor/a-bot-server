@@ -22,7 +22,7 @@ module Entities
         @state = { cells: [
           { index: 0,  player: 1, armySize: 1},
           { index: 1,  player: 1, armySize: 2},
-          { index: 2,  player: 1, armySize: 9},
+          { index: 2,  player: 1, armySize: 7},
           { index: 3,  player: 1, armySize: 1},
           { index: 4,  player: 1, armySize: 6},
           { index: 5,  player: 1, armySize: 1},
@@ -36,7 +36,7 @@ module Entities
           { index: 13, player: 1, armySize: 4},
           { index: 14, player: 1, armySize: 1},
           { index: 15, player: 1, armySize: 2},
-          { index: 16, player: 1, armySize: 9},
+          { index: 16, player: 1, armySize: 4},
           { index: 17, player: 1, armySize: 4},
           { index: 18, player: 1, armySize: 1},
           { index: 19, player: 1, armySize: 1},
