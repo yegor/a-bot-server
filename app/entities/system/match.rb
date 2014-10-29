@@ -18,6 +18,7 @@ module Entities
 
       def initialize
         p "INITIALIZING MATCH"
+        @connections = Set.new
         @state = { cells: [
           { index: 0,  player: 1, armySize: 1},
           { index: 1,  player: 1, armySize: 2},
@@ -77,7 +78,8 @@ module Entities
       #    Entities::System::MatchState( Entities::System::Cell( int32 index, int32 player, int32 armySize )[] cells )
       #
       def get_state
-        @state
+        @connections.add(Fiber.current[:context][:connection])
+        return @state
       end
 
       #  Arguments are:
@@ -95,9 +97,11 @@ module Entities
 
         to_cell[:player] = from_cell[:player]
 
-        self.to(Fiber.current[:context][:connection]).update_cell(
-          Entities::System::Cell.new(index: to, player: to_cell[:player], armySize: to_cell[:armySize])
-        )
+        @connections.each do |c|
+          self.to(c).update_cell(
+            Entities::System::Cell.new(index: to, player: to_cell[:player], armySize: to_cell[:armySize])
+          )
+        end
       end
 
     end
