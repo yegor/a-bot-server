@@ -3,5 +3,6 @@ package entities.system;
 import "entities/system/match.proto";
 
 entity MatchMaker {
-	server CreateMatch() returns entities.system.Match;
+	client MatchReady(entities.system.Match match);
+	server FindMatch() returns;
 }

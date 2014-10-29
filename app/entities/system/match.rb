@@ -6,9 +6,6 @@ module Entities
     #  update_cell( Entities::System::Cell( int32 index, int32 player, int32 armySize ) cell )
     #  log_message_from_server( string text )
     #  error_message_from_server( string text )
-    #  update_cell( Entities::System::Cell( int32 index, int32 player, int32 armySize ) cell )
-    #  log_message_from_server( string text )
-    #  error_message_from_server( string text )
     #
     class Match
 
@@ -103,7 +100,7 @@ module Entities
 
         if from_cell[:player] != player_index
           p "NOT ALLOWED MOVE"
-          self.to(Fiber.current[:context][:connection]).error_message_from_server("NOT ALLOWED MOVE")
+          self.to(Fiber.current[:context][:connection]).error_message_from_server("NOT ALLOWED MOVE FROM #{from} TO #{to}")
           return
         end
 

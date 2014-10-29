@@ -6,20 +6,21 @@ require 'protocol_buffers'
 module Entities
   module System
     # forward declarations
-    class ServerMatchMakerCreateMatchRequestMessage; include ProtocolBuffers::Message; end
-    class ServerMatchMakerCreateMatchResponseMessage; include ProtocolBuffers::Message; end
+    class ClientMatchMakerMatchReadyRequestMessage; include ProtocolBuffers::Message; end
+    class ServerMatchMakerFindMatchRequestMessage; include ProtocolBuffers::Message; end
 
-    class ServerMatchMakerCreateMatchRequestMessage
+    class ClientMatchMakerMatchReadyRequestMessage
+      required ::Phoenix::Messages::Mailbox, :match, 1, :entity => "Entities::System::Match" 
     end
 
-    class ServerMatchMakerCreateMatchResponseMessage
-      required ::Phoenix::Messages::Mailbox, :value, 1, :entity => "Entities::System::Match" 
+    class ServerMatchMakerFindMatchRequestMessage
     end
 
     class MatchMaker
     include ProtocolBuffers::Service
 
-      rpc :create_match, "CreateMatch", ::Entities::System::ServerMatchMakerCreateMatchRequestMessage, ::Entities::System::ServerMatchMakerCreateMatchResponseMessage
+      client_rpc :match_ready, "MatchReady", ::Entities::System::ClientMatchMakerMatchReadyRequestMessage, ::Phoenix::Messages::Void
+      rpc :find_match, "FindMatch", ::Entities::System::ServerMatchMakerFindMatchRequestMessage, ::Phoenix::Messages::Void
     end
   end
 end
