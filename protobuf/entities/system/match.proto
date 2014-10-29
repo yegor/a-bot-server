@@ -12,8 +12,9 @@ message MatchState {
 
 entity Match {
 	client UpdateCell(Cell cell);
+	client LogMessageFromServer(string text);
+	client ErrorMessageFromServer(string text);
 
-	server GetMyId() returns int32;
 	server GetState() returns MatchState;
 	server MakeMove(int32 from, int32 to) returns;
 }

@@ -9,8 +9,8 @@ module Entities
     class Cell; include ProtocolBuffers::Message; end
     class MatchState; include ProtocolBuffers::Message; end
     class ClientMatchUpdateCellRequestMessage; include ProtocolBuffers::Message; end
-    class ServerMatchGetMyIdRequestMessage; include ProtocolBuffers::Message; end
-    class ServerMatchGetMyIdResponseMessage; include ProtocolBuffers::Message; end
+    class ClientMatchLogMessageFromServerRequestMessage; include ProtocolBuffers::Message; end
+    class ClientMatchErrorMessageFromServerRequestMessage; include ProtocolBuffers::Message; end
     class ServerMatchGetStateRequestMessage; include ProtocolBuffers::Message; end
     class ServerMatchGetStateResponseMessage; include ProtocolBuffers::Message; end
     class ServerMatchMakeMoveRequestMessage; include ProtocolBuffers::Message; end
@@ -29,11 +29,12 @@ module Entities
       required ::Entities::System::Cell, :cell, 1
     end
 
-    class ServerMatchGetMyIdRequestMessage
+    class ClientMatchLogMessageFromServerRequestMessage
+      required :string, :text, 1
     end
 
-    class ServerMatchGetMyIdResponseMessage
-      required :int32, :value, 1
+    class ClientMatchErrorMessageFromServerRequestMessage
+      required :string, :text, 1
     end
 
     class ServerMatchGetStateRequestMessage
@@ -52,7 +53,8 @@ module Entities
     include ProtocolBuffers::Service
 
       client_rpc :update_cell, "UpdateCell", ::Entities::System::ClientMatchUpdateCellRequestMessage, ::Phoenix::Messages::Void
-      rpc :get_my_id, "GetMyId", ::Entities::System::ServerMatchGetMyIdRequestMessage, ::Entities::System::ServerMatchGetMyIdResponseMessage
+      client_rpc :log_message_from_server, "LogMessageFromServer", ::Entities::System::ClientMatchLogMessageFromServerRequestMessage, ::Phoenix::Messages::Void
+      client_rpc :error_message_from_server, "ErrorMessageFromServer", ::Entities::System::ClientMatchErrorMessageFromServerRequestMessage, ::Phoenix::Messages::Void
       rpc :get_state, "GetState", ::Entities::System::ServerMatchGetStateRequestMessage, ::Entities::System::ServerMatchGetStateResponseMessage
       rpc :make_move, "MakeMove", ::Entities::System::ServerMatchMakeMoveRequestMessage, ::Phoenix::Messages::Void
     end
