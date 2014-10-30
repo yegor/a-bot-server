@@ -5,6 +5,5 @@ application.on(:start) do
     end
   end
 
-  ::Entities::System::Echo.new
-  ::Entities::System::MatchMaker.new
+  ::Entities::Auth::LoginManager.new
 end

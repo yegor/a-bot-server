@@ -7,6 +7,10 @@ module Entities
 
       presence :global
 
+      def initialize
+        p "INTIALIZING LOGIN MANAGER"
+      end
+
       #  Arguments are:
       #    credentials: Messages::Auth::Credentials( int32 id, string email, string password )
       #
@@ -14,7 +18,8 @@ module Entities
       #    Entities::Auth::Account
       #
       def login( credentials )
-        raise NotImplementedError.new
+        p "SOMEBODY IS LOGGING IN"
+        return ::Entities::Auth::Account.new
       end
 
 
