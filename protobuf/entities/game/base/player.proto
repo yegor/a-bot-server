@@ -1,0 +1,16 @@
+package entities.game.base;
+
+import "messages/game/base/cell.proto";
+import "messages/game/base/match_state.proto";
+
+entity Player {
+	client UpdateCell(messages.game.base.Cell cell);
+	client SwitchTurn(entities.game.base.Player player);
+
+	client LogMessageFromServer(string text);
+	client ErrorMessageFromServer(string text);
+
+	server GetState() returns messages.game.base.MatchState;
+	server MakeMove(int32 from, int32 to) returns;
+	server EndTurn() returns;
+}

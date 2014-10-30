@@ -1,0 +1,7 @@
+package messages.game.base;
+
+message Cell {
+	required int32 index = 1;
+	required int32 player = 2;
+	required int32 armySize = 3;
+}

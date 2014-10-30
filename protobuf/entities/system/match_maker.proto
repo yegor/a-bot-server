@@ -1,8 +1,0 @@
-package entities.system;
-
-import "entities/system/match.proto";
-
-entity MatchMaker {
-	client MatchReady(entities.system.Match match);
-	server FindMatch() returns;
-}

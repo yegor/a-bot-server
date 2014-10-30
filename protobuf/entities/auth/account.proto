@@ -1,0 +1,5 @@
+package entities.auth;
+
+entity Account {
+	server GetName() returns string;
+}

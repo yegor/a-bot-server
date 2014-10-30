@@ -1,0 +1,7 @@
+package messages.game.base;
+
+import "messages/game/base/cell.proto";
+
+message MatchState {
+	repeated Cell cells = 1;
+}

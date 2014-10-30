@@ -1,0 +1,8 @@
+package entities.game;
+
+import "entities/game/base/player.proto";
+
+entity MatchMaker {
+	client MatchReady(entities.game.base.Player player);
+	server FindMatch() returns;
+}

@@ -1,16 +1,16 @@
 module Entities
-  module System
+  module Auth
 
-    class Test
+    class Account
 
       include ::Phoenix::Entity::Base
 
       presence :global
 
       #  Result is:
-      #    Entities::System::Outer( Entities::System::Handle h, Entities::System::Handle[] hh )
+      #    string
       #
-      def outgoing
+      def get_name
         raise NotImplementedError.new
       end
 
