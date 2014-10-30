@@ -7,7 +7,7 @@ module Messages
   module Game
     module Base
       # forward declarations
-      class Cell; include ProtocolBuffers::Message; end
+      class Cell; include ProtocolBuffers::Message; clear_fields!; end
 
       class Cell
         required :int32, :index, 1

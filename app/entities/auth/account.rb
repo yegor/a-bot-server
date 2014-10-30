@@ -7,6 +7,16 @@ module Entities
 
       presence :global
 
+      attr_accessor :connection
+
+      def initialize(connection)
+        self.connection = connection
+      end
+
+      def entity_id
+        @entity_id ||= Celluloid.uuid
+      end
+
       #  Result is:
       #    string
       #

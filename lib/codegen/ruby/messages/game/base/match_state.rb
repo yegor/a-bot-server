@@ -7,7 +7,7 @@ module Messages
   module Game
     module Base
       # forward declarations
-      class MatchState; include ProtocolBuffers::Message; end
+      class MatchState; include ProtocolBuffers::Message; clear_fields!; end
 
       class MatchState
         repeated ::Messages::Game::Base::Cell, :cells, 1

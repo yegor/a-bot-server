@@ -6,4 +6,5 @@ application.on(:start) do
   end
 
   ::Entities::Auth::LoginManager.new
+  ::Entities::Game::MatchMaker.new
 end

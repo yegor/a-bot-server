@@ -7,14 +7,14 @@ module Entities
   module Game
     module Base
       # forward declarations
-      class ClientPlayerUpdateCellRequestMessage; include ProtocolBuffers::Message; end
-      class ClientPlayerSwitchTurnRequestMessage; include ProtocolBuffers::Message; end
-      class ClientPlayerLogMessageFromServerRequestMessage; include ProtocolBuffers::Message; end
-      class ClientPlayerErrorMessageFromServerRequestMessage; include ProtocolBuffers::Message; end
-      class ServerPlayerGetStateRequestMessage; include ProtocolBuffers::Message; end
-      class ServerPlayerGetStateResponseMessage; include ProtocolBuffers::Message; end
-      class ServerPlayerMakeMoveRequestMessage; include ProtocolBuffers::Message; end
-      class ServerPlayerEndTurnRequestMessage; include ProtocolBuffers::Message; end
+      class ClientPlayerUpdateCellRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ClientPlayerSwitchTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ClientPlayerLogMessageFromServerRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ClientPlayerErrorMessageFromServerRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ServerPlayerGetStateRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ServerPlayerGetStateResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ServerPlayerMakeMoveRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ServerPlayerEndTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
 
       class ClientPlayerUpdateCellRequestMessage
         required ::Messages::Game::Base::Cell, :cell, 1
@@ -49,6 +49,7 @@ module Entities
 
       class Player
     include ProtocolBuffers::Service
+    clear_rpcs!
 
         client_rpc :update_cell, "UpdateCell", ::Entities::Game::Base::ClientPlayerUpdateCellRequestMessage, ::Phoenix::Messages::Void
         client_rpc :switch_turn, "SwitchTurn", ::Entities::Game::Base::ClientPlayerSwitchTurnRequestMessage, ::Phoenix::Messages::Void

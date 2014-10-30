@@ -12,14 +12,14 @@ module Entities
       end
 
       #  Arguments are:
-      #    credentials: Messages::Auth::Credentials( int32 id, string email, string password )
+      #    credential: Messages::Auth::Credential( int32 id, string email, string password )
       #
       #  Result is:
       #    Entities::Auth::Account
       #
-      def login( credentials )
+      def login( credential )
         p "SOMEBODY IS LOGGING IN"
-        return ::Entities::Auth::Account.new
+        return ::Entities::Auth::Account.new( Fiber.current[:context][:connection] )
       end
 
 

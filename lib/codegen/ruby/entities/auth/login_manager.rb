@@ -6,11 +6,11 @@ require 'protocol_buffers'
 module Entities
   module Auth
     # forward declarations
-    class ServerLoginManagerLoginRequestMessage; include ProtocolBuffers::Message; end
-    class ServerLoginManagerLoginResponseMessage; include ProtocolBuffers::Message; end
+    class ServerLoginManagerLoginRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+    class ServerLoginManagerLoginResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
 
     class ServerLoginManagerLoginRequestMessage
-      required ::Messages::Auth::Credentials, :credentials, 1
+      required ::Messages::Auth::Credential, :credential, 1
     end
 
     class ServerLoginManagerLoginResponseMessage
@@ -19,6 +19,7 @@ module Entities
 
     class LoginManager
     include ProtocolBuffers::Service
+    clear_rpcs!
 
       rpc :login, "Login", ::Entities::Auth::ServerLoginManagerLoginRequestMessage, ::Entities::Auth::ServerLoginManagerLoginResponseMessage
     end

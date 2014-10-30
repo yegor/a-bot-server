@@ -8,6 +8,7 @@ module Entities
     module Base
       class Match
     include ProtocolBuffers::Service
+    clear_rpcs!
 
       end
     end

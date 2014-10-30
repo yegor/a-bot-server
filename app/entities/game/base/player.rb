@@ -8,12 +8,14 @@ module Entities
 
         presence :global
 
+        attr_accessor :account
+
+        def initialize(account)
+            self.account = account
+        end
+
         #  Client-side methods available through this entity:
         #
-        #  update_cell( Messages::Game::Base::Cell( int32 index, int32 player, int32 armySize ) cell )
-        #  switch_turn( Entities::Game::Base::Player player )
-        #  log_message_from_server( string text )
-        #  error_message_from_server( string text )
         #  update_cell( Messages::Game::Base::Cell( int32 index, int32 player, int32 armySize ) cell )
         #  switch_turn( Entities::Game::Base::Player player )
         #  log_message_from_server( string text )
@@ -43,6 +45,10 @@ module Entities
         #
         def end_turn
           raise NotImplementedError.new
+        end
+
+        def entity_id
+          @entity_id ||= Celluloid.uuid
         end
 
 
