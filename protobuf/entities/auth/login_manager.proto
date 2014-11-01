@@ -1,0 +1,8 @@
+package entities.auth;
+
+import "entities/auth/account.proto";
+import "messages/auth/credential.proto";
+
+entity LoginManager {
+	server Login(messages.auth.Credential credential) returns entities.auth.Account;
+}

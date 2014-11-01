@@ -1,5 +1,0 @@
-package entities.system;
-
-entity Handle {
-  server Increment () returns int32;
-}

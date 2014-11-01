@@ -6,9 +6,9 @@ require 'protocol_buffers'
 module Messages
   module Auth
     # forward declarations
-    class User; include ProtocolBuffers::Message; end
+    class Credential; include ProtocolBuffers::Message; clear_fields!; end
 
-    class User
+    class Credential
       required :int32, :id, 1
       required :string, :email, 2
       required :string, :password, 3
