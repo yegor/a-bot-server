@@ -1,0 +1,11 @@
+development:
+  adapter: mysql2celluloid
+  host: 127.0.0.1
+  database: abot_development
+  username: root
+  password:
+  reconnect: true
+  write_timeout: 3600
+  read_timeout: 3600
+  variables:
+    group_concat_max_len: 1000000000

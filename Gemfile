@@ -6,6 +6,7 @@ gem "rspec"
 gem "foreman"
 
 gem "phoenix",                path: "lib/phoenix"
-gem "ruby-protocol-buffers",  github: "yard/ruby-protocol-buffers"
 
+gem "ruby-protocol-buffers",  github: "yard/ruby-protocol-buffers"
+gem "mysql2celluloid",        github: "yard/mysql2celluloid"
 
