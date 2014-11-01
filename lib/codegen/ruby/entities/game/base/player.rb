@@ -7,6 +7,7 @@ module Entities
   module Game
     module Base
       # forward declarations
+      class PlayerPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ClientPlayerUpdateCellRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ClientPlayerSwitchTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ClientPlayerLogMessageFromServerRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
@@ -15,6 +16,9 @@ module Entities
       class ServerPlayerGetStateResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerPlayerMakeMoveRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerPlayerEndTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+
+      class PlayerPropertiesMessage
+      end
 
       class ClientPlayerUpdateCellRequestMessage
         required ::Messages::Game::Base::Cell, :cell, 1
@@ -48,9 +52,9 @@ module Entities
       end
 
       class Player
-    include ProtocolBuffers::Service
-    clear_rpcs!
-
+        include ProtocolBuffers::Service
+        clear_rpcs!
+        properties PlayerPropertiesMessage
         client_rpc :update_cell, "UpdateCell", ::Entities::Game::Base::ClientPlayerUpdateCellRequestMessage, ::Phoenix::Messages::Void
         client_rpc :switch_turn, "SwitchTurn", ::Entities::Game::Base::ClientPlayerSwitchTurnRequestMessage, ::Phoenix::Messages::Void
         client_rpc :log_message_from_server, "LogMessageFromServer", ::Entities::Game::Base::ClientPlayerLogMessageFromServerRequestMessage, ::Phoenix::Messages::Void

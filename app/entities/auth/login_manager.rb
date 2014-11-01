@@ -6,6 +6,7 @@ module Entities
       include ::Phoenix::Entity::Base
 
       presence :global
+      singleton!
 
       def initialize
         p "INTIALIZING LOGIN MANAGER"
@@ -19,7 +20,7 @@ module Entities
       #
       def login( credential )
         p "SOMEBODY IS LOGGING IN"
-        return ::Entities::Auth::Account.new( Fiber.current[:context][:connection] )
+        self.session[:account] = ::Entities::Auth::Account.new( Fiber.current[:context][:connection] )
       end
 
 

@@ -5,5 +5,5 @@ import "entities/auth/account.proto";
 
 entity MatchMaker {
 	client MatchReady(entities.game.base.Player player);
-	server FindMatch(entities.auth.Account account) returns;
+	server FindMatch() returns;
 }

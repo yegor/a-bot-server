@@ -7,23 +7,19 @@ module Entities
 
       presence :global
 
+      #  Properties defined on this entity (will be sent to clients):
+      #
+      #  id: int32
+      #  name: string
+      #
+
       attr_accessor :connection
 
       def initialize(connection)
         self.connection = connection
+        self.id = 123
+        self.name = "Dat mah name"
       end
-
-      def entity_id
-        @entity_id ||= Celluloid.uuid
-      end
-
-      #  Result is:
-      #    string
-      #
-      def get_name
-        raise NotImplementedError.new
-      end
-
 
     end
 

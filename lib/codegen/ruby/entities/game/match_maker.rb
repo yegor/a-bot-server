@@ -6,21 +6,24 @@ require 'protocol_buffers'
 module Entities
   module Game
     # forward declarations
+    class MatchMakerPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
     class ClientMatchMakerMatchReadyRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
     class ServerMatchMakerFindMatchRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+
+    class MatchMakerPropertiesMessage
+    end
 
     class ClientMatchMakerMatchReadyRequestMessage
       required ::Phoenix::Messages::Mailbox, :player, 1, :entity => "Entities::Game::Base::Player" 
     end
 
     class ServerMatchMakerFindMatchRequestMessage
-      required ::Phoenix::Messages::Mailbox, :account, 1, :entity => "Entities::Auth::Account" 
     end
 
     class MatchMaker
-    include ProtocolBuffers::Service
-    clear_rpcs!
-
+      include ProtocolBuffers::Service
+      clear_rpcs!
+      properties MatchMakerPropertiesMessage
       client_rpc :match_ready, "MatchReady", ::Entities::Game::ClientMatchMakerMatchReadyRequestMessage, ::Phoenix::Messages::Void
       rpc :find_match, "FindMatch", ::Entities::Game::ServerMatchMakerFindMatchRequestMessage, ::Phoenix::Messages::Void
     end

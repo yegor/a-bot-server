@@ -47,11 +47,6 @@ module Entities
           raise NotImplementedError.new
         end
 
-        def entity_id
-          @entity_id ||= Celluloid.uuid
-        end
-
-
       end
 
     end

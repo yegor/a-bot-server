@@ -6,8 +6,12 @@ require 'protocol_buffers'
 module Entities
   module Auth
     # forward declarations
+    class LoginManagerPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
     class ServerLoginManagerLoginRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
     class ServerLoginManagerLoginResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
+
+    class LoginManagerPropertiesMessage
+    end
 
     class ServerLoginManagerLoginRequestMessage
       required ::Messages::Auth::Credential, :credential, 1
@@ -18,9 +22,9 @@ module Entities
     end
 
     class LoginManager
-    include ProtocolBuffers::Service
-    clear_rpcs!
-
+      include ProtocolBuffers::Service
+      clear_rpcs!
+      properties LoginManagerPropertiesMessage
       rpc :login, "Login", ::Entities::Auth::ServerLoginManagerLoginRequestMessage, ::Entities::Auth::ServerLoginManagerLoginResponseMessage
     end
   end

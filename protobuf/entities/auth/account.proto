@@ -1,5 +1,6 @@
 package entities.auth;
 
 entity Account {
-	server GetName() returns string;
+  property int32 id;
+  property string name;
 }

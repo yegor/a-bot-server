@@ -6,6 +6,7 @@ module Entities
       include ::Phoenix::Entity::Base
 
       presence :global
+      singleton!
 
       attr_accessor :queue
 
@@ -19,13 +20,12 @@ module Entities
         self.queue = []
       end
 
-      #  Arguments are:
-      #    account: Entities::Auth::Account
-      #
       #  Result is:
       #    (void)
       #
-      def find_match( account )
+      def find_match
+        account = self.session[:account]
+
         p account
         p "FINDING MATCH"
 

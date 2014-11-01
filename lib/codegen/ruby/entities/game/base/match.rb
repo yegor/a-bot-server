@@ -6,10 +6,16 @@ require 'protocol_buffers'
 module Entities
   module Game
     module Base
-      class Match
-    include ProtocolBuffers::Service
-    clear_rpcs!
+      # forward declarations
+      class MatchPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
 
+      class MatchPropertiesMessage
+      end
+
+      class Match
+        include ProtocolBuffers::Service
+        clear_rpcs!
+        properties MatchPropertiesMessage
       end
     end
   end

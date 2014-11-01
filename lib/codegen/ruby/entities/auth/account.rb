@@ -6,21 +6,17 @@ require 'protocol_buffers'
 module Entities
   module Auth
     # forward declarations
-    class ServerAccountGetNameRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
-    class ServerAccountGetNameResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
+    class AccountPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
 
-    class ServerAccountGetNameRequestMessage
-    end
-
-    class ServerAccountGetNameResponseMessage
-      required :string, :value, 1
+    class AccountPropertiesMessage
+      optional :int32, :id, 1
+      optional :string, :name, 2
     end
 
     class Account
-    include ProtocolBuffers::Service
-    clear_rpcs!
-
-      rpc :get_name, "GetName", ::Entities::Auth::ServerAccountGetNameRequestMessage, ::Entities::Auth::ServerAccountGetNameResponseMessage
+      include ProtocolBuffers::Service
+      clear_rpcs!
+      properties AccountPropertiesMessage
     end
   end
 end
