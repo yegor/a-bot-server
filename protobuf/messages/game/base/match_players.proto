@@ -2,6 +2,6 @@ package messages.game.base;
 
 import "entities/game/base/player.proto";
 
-message Players {
-  repeated entities.game.base.Player players = 1;
+message MatchPlayers {
+	repeated entities.game.base.Player players = 1;
 }

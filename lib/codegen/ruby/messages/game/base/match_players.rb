@@ -7,9 +7,9 @@ module Messages
   module Game
     module Base
       # forward declarations
-      class Players; include ProtocolBuffers::Message; clear_fields!; end
+      class MatchPlayers; include ProtocolBuffers::Message; clear_fields!; end
 
-      class Players
+      class MatchPlayers
         repeated ::Phoenix::Messages::Mailbox, :players, 1, :entity => "Entities::Game::Base::Player" 
       end
 

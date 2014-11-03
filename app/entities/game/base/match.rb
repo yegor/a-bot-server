@@ -15,7 +15,7 @@ module Entities
         #
 
         #  Result is:
-        #    Messages::Game::Base::MatchState( Messages::Game::Base::Field( Messages::Game::Base::Cell( int32 id, int32 playerId, int32 armySize )[] cells, Messages::Game::Base::Node( int32 from, int32 to )[] nodes ) field, Messages::Game::Base::Players( Entities::Game::Base::Player[] players ) players, int32 turnNumber, int32 turnPlayerId )
+        #    Messages::Game::Base::MatchState( Messages::Game::Base::Field( Messages::Game::Base::Cell( int32 id, int32 playerId, int32 armySize )[] cells, Messages::Game::Base::Node( int32 from, int32 to )[] nodes ) field, Messages::Game::Base::MatchPlayers( Entities::Game::Base::Player[] players ) players, int32 turnNumber, int32 turnPlayerId )
         #
         def get_state
           raise NotImplementedError.new

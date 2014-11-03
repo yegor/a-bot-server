@@ -3,11 +3,11 @@ package messages.game.base;
 import "messages/game/base/cell.proto";
 
 message Node {
-  required int32 from = 1;
-  required int32 to = 2;
+	required int32 from = 1;
+	required int32 to = 2;
 }
 
 message Field {
-  repeated messages.game.base.Cell cells = 1;
-  repeated messages.game.base.Node nodes = 2;
+	repeated messages.game.base.Cell cells = 1;
+	repeated messages.game.base.Node nodes = 2;
 }

@@ -2,7 +2,7 @@ module Messages
   module Game
     module Base
 
-      class Players
+      class MatchPlayers
 
         include ::Phoenix::Messages::Base
 
