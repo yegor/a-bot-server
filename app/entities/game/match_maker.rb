@@ -38,8 +38,20 @@ module Entities
         while self.queue.size >= 2
           p "MATCH FOUND"
 
-          self.to(self.queue[0].connection).match_ready( ::Entities::Game::Base::Player.new(self.queue[0]) )
-          self.to(self.queue[1].connection).match_ready( ::Entities::Game::Base::Player.new(self.queue[1]) )
+          match = ::Entities::Game::Base::Match.new()
+
+          begin
+            self.to(self.queue[0].connection).match_ready( match, ::Entities::Game::Base::Player.new(self.queue[0]) )
+          rescue Phoenix::Entity::Proxies::Client::DeadClientException
+            p "FIRST CLIENT IS DEAD"
+            self.queue = self.queue[1 .. -1]
+            next
+          end
+
+          # second just came, we assume he is not dead ;)
+          self.to(self.queue[1].connection).match_ready( match, ::Entities::Game::Base::Player.new(self.queue[1]) )
+
+          p "MATCH ACTUALLY STARTED"
 
           self.queue = self.queue[2 .. -1]
         end
