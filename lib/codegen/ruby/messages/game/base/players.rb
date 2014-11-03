@@ -7,12 +7,10 @@ module Messages
   module Game
     module Base
       # forward declarations
-      class Cell; include ProtocolBuffers::Message; clear_fields!; end
+      class Players; include ProtocolBuffers::Message; clear_fields!; end
 
-      class Cell
-        required :int32, :id, 1
-        required :int32, :playerId, 2
-        required :int32, :armySize, 3
+      class Players
+        repeated ::Phoenix::Messages::Mailbox, :players, 1, :entity => "Entities::Game::Base::Player" 
       end
 
     end

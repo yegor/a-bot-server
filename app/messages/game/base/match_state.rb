@@ -8,9 +8,11 @@ module Messages
 
         #  Fields defined on this message:
         #
-        #  cells: Messages::Game::Base::Cell( int32 index, int32 player, int32 armySize )[]
+        #  field: Messages::Game::Base::Field( Messages::Game::Base::Cell( int32 id, int32 playerId, int32 armySize )[] cells, Messages::Game::Base::Node( int32 from, int32 to )[] nodes )
+        #  players: Messages::Game::Base::Players( Entities::Game::Base::Player[] players )
+        #  turnNumber: int32
+        #  turnPlayerId: int32
         #
-
 
       end
 

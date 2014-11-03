@@ -1,7 +1,12 @@
 package messages.game.base;
 
-import "messages/game/base/cell.proto";
+import "messages/game/base/field.proto";
+import "messages/game/base/players.proto";
 
 message MatchState {
-	repeated Cell cells = 1;
+	required messages.game.base.Field field = 1;
+  required messages.game.base.Players players = 2;
+
+  required int32 turnNumber = 3;
+  required int32 turnPlayerId = 4;
 }

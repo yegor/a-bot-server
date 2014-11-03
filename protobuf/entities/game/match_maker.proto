@@ -1,9 +1,11 @@
 package entities.game;
 
 import "entities/game/base/player.proto";
-import "entities/auth/account.proto";
+import "entities/game/base/match.proto";
 
 entity MatchMaker {
-	client MatchReady(entities.game.base.Player player);
+	client MatchReady(entities.game.base.Match match, entities.game.base.Player player);
+  client MatchTimedOut();
+
 	server FindMatch() returns;
 }

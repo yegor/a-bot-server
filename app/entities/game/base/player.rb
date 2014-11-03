@@ -11,22 +11,7 @@ module Entities
         attr_accessor :account
 
         def initialize(account)
-            self.account = account
-        end
-
-        #  Client-side methods available through this entity:
-        #
-        #  update_cell( Messages::Game::Base::Cell( int32 index, int32 player, int32 armySize ) cell )
-        #  switch_turn( Entities::Game::Base::Player player )
-        #  log_message_from_server( string text )
-        #  error_message_from_server( string text )
-        #
-
-        #  Result is:
-        #    Messages::Game::Base::MatchState( Messages::Game::Base::Cell( int32 index, int32 player, int32 armySize )[] cells )
-        #
-        def get_state
-          raise NotImplementedError.new
+          self.account = account
         end
 
         #  Arguments are:

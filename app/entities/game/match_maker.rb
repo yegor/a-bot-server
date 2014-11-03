@@ -12,7 +12,8 @@ module Entities
 
       #  Client-side methods available through this entity:
       #
-      #  match_ready( Entities::Game::Base::Player player )
+      #  match_ready( Entities::Game::Base::Match match, Entities::Game::Base::Player player )
+      #  match_timed_out(  )
       #
 
       def initialize

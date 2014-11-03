@@ -8,39 +8,10 @@ module Entities
     module Base
       # forward declarations
       class PlayerPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
-      class ClientPlayerUpdateCellRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
-      class ClientPlayerSwitchTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
-      class ClientPlayerLogMessageFromServerRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
-      class ClientPlayerErrorMessageFromServerRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
-      class ServerPlayerGetStateRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
-      class ServerPlayerGetStateResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerPlayerMakeMoveRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerPlayerEndTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
 
       class PlayerPropertiesMessage
-      end
-
-      class ClientPlayerUpdateCellRequestMessage
-        required ::Messages::Game::Base::Cell, :cell, 1
-      end
-
-      class ClientPlayerSwitchTurnRequestMessage
-        required ::Phoenix::Messages::Mailbox, :player, 1, :entity => "Entities::Game::Base::Player" 
-      end
-
-      class ClientPlayerLogMessageFromServerRequestMessage
-        required :string, :text, 1
-      end
-
-      class ClientPlayerErrorMessageFromServerRequestMessage
-        required :string, :text, 1
-      end
-
-      class ServerPlayerGetStateRequestMessage
-      end
-
-      class ServerPlayerGetStateResponseMessage
-        required ::Messages::Game::Base::MatchState, :value, 1
       end
 
       class ServerPlayerMakeMoveRequestMessage
@@ -55,11 +26,6 @@ module Entities
         include ProtocolBuffers::Service
         clear_rpcs!
         properties PlayerPropertiesMessage
-        client_rpc :update_cell, "UpdateCell", ::Entities::Game::Base::ClientPlayerUpdateCellRequestMessage, ::Phoenix::Messages::Void
-        client_rpc :switch_turn, "SwitchTurn", ::Entities::Game::Base::ClientPlayerSwitchTurnRequestMessage, ::Phoenix::Messages::Void
-        client_rpc :log_message_from_server, "LogMessageFromServer", ::Entities::Game::Base::ClientPlayerLogMessageFromServerRequestMessage, ::Phoenix::Messages::Void
-        client_rpc :error_message_from_server, "ErrorMessageFromServer", ::Entities::Game::Base::ClientPlayerErrorMessageFromServerRequestMessage, ::Phoenix::Messages::Void
-        rpc :get_state, "GetState", ::Entities::Game::Base::ServerPlayerGetStateRequestMessage, ::Entities::Game::Base::ServerPlayerGetStateResponseMessage
         rpc :make_move, "MakeMove", ::Entities::Game::Base::ServerPlayerMakeMoveRequestMessage, ::Phoenix::Messages::Void
         rpc :end_turn, "EndTurn", ::Entities::Game::Base::ServerPlayerEndTurnRequestMessage, ::Phoenix::Messages::Void
       end

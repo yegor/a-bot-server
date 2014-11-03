@@ -10,7 +10,10 @@ module Messages
       class MatchState; include ProtocolBuffers::Message; clear_fields!; end
 
       class MatchState
-        repeated ::Messages::Game::Base::Cell, :cells, 1
+        required ::Messages::Game::Base::Field, :field, 1
+        required ::Messages::Game::Base::Players, :players, 2
+        required :int32, :turnNumber, 3
+        required :int32, :turnPlayerId, 4
       end
 
     end

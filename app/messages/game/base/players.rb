@@ -2,15 +2,13 @@ module Messages
   module Game
     module Base
 
-      class Cell
+      class Players
 
         include ::Phoenix::Messages::Base
-        
+
         #  Fields defined on this message:
         #
-        #  id: int32
-        #  playerId: int32
-        #  armySize: int32
+        #  players: Entities::Game::Base::Player[]
         #
 
 

@@ -1,5 +1,12 @@
 package entities.game.base;
 
+import "messages/game/base/cell.proto";
+import "messages/game/base/match_state.proto";
+import "entities/game/base/player.proto";
+
 entity Match {
-	//...
+	client UpdateCell(messages.game.base.Cell cell);
+  client SwitchTurn(entities.game.base.Player player);
+  
+  server GetState() returns messages.game.base.MatchState;
 }

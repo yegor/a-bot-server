@@ -8,14 +8,36 @@ module Entities
     module Base
       # forward declarations
       class MatchPropertiesMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ClientMatchUpdateCellRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ClientMatchSwitchTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ServerMatchGetStateRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ServerMatchGetStateResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
 
       class MatchPropertiesMessage
+      end
+
+      class ClientMatchUpdateCellRequestMessage
+        required ::Messages::Game::Base::Cell, :cell, 1
+      end
+
+      class ClientMatchSwitchTurnRequestMessage
+        required ::Phoenix::Messages::Mailbox, :player, 1, :entity => "Entities::Game::Base::Player" 
+      end
+
+      class ServerMatchGetStateRequestMessage
+      end
+
+      class ServerMatchGetStateResponseMessage
+        required ::Messages::Game::Base::MatchState, :value, 1
       end
 
       class Match
         include ProtocolBuffers::Service
         clear_rpcs!
         properties MatchPropertiesMessage
+        client_rpc :update_cell, "UpdateCell", ::Entities::Game::Base::ClientMatchUpdateCellRequestMessage, ::Phoenix::Messages::Void
+        client_rpc :switch_turn, "SwitchTurn", ::Entities::Game::Base::ClientMatchSwitchTurnRequestMessage, ::Phoenix::Messages::Void
+        rpc :get_state, "GetState", ::Entities::Game::Base::ServerMatchGetStateRequestMessage, ::Entities::Game::Base::ServerMatchGetStateResponseMessage
       end
     end
   end
