@@ -1,0 +1,5 @@
+package messages.game;
+
+message MatchRequest {
+	required int32 matchType = 1;
+}

@@ -21,10 +21,13 @@ module Entities
         self.queue = []
       end
 
+      #  Arguments are:
+      #    matchRequest: Entities::Game::MatchRequest
+      #
       #  Result is:
       #    (void)
       #
-      def find_match
+      def find_match( matchRequest )
         account = self.session[:account]
 
         p account
