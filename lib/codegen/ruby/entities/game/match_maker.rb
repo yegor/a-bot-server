@@ -23,7 +23,7 @@ module Entities
     end
 
     class ServerMatchMakerFindMatchRequestMessage
-      required ::Phoenix::Messages::Mailbox, :matchRequest, 1, :entity => "Entities::Game::MatchRequest" 
+      required ::Messages::Game::MatchRequest, :matchRequest, 1
     end
 
     class MatchMaker

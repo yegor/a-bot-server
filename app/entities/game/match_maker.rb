@@ -22,7 +22,7 @@ module Entities
       end
 
       #  Arguments are:
-      #    matchRequest: Entities::Game::MatchRequest
+      #    matchRequest: Messages::Game::MatchRequest( int32 matchType )
       #
       #  Result is:
       #    (void)
