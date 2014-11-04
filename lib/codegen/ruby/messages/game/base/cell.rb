@@ -11,8 +11,8 @@ module Messages
 
       class Cell
         required :int32, :id, 1
-        required :int32, :playerId, 2
-        required :int32, :armySize, 3
+        required :int32, :player_id, 2
+        required :int32, :army_size, 3
       end
 
     end

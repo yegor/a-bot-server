@@ -23,7 +23,7 @@ module Entities
     end
 
     class ServerMatchMakerFindMatchRequestMessage
-      required ::Messages::Game::MatchRequest, :matchRequest, 1
+      required ::Messages::Game::MatchRequest, :match_request, 1
     end
 
     class MatchMaker

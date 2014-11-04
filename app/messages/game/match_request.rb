@@ -7,7 +7,7 @@ module Messages
 
       #  Fields defined on this message:
       #
-      #  matchType: int32
+      #  match_type: int32
       #
 
 

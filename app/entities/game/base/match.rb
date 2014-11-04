@@ -10,7 +10,7 @@ module Entities
 
         #  Client-side methods available through this entity:
         #
-        #  update_cell( Messages::Game::Base::Cell( int32 id, int32 playerId, int32 armySize ) cell )
+        #  update_cell( Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size ) cell )
         #  switch_turn( Entities::Game::Base::Player player )
         #
 
@@ -18,17 +18,13 @@ module Entities
           @state = Messages::Game::Base::MatchState.new(
             field: nil,
             players: Messages::Game::Base::MatchPlayers.new(),
-            turnNumber: 100,
-            turnPlayerId: 500,
+            turn_number: 100,
+            turn_player_id: 500,
           )
         end
 
         #  Result is:
-        #    Messages::Game::Base::MatchState(
-        #      Messages::Game::Base::Field(
-        #         Messages::Game::Base::Cell( int32 id, int32 playerId, int32 armySize )[] cells,
-        #         Messages::Game::Base::Node( int32 from, int32 to )[] nodes
-        #      ) field, Messages::Game::Base::MatchPlayers( Entities::Game::Base::Player[] players ) players, int32 turnNumber, int32 turnPlayerId )
+        #    Messages::Game::Base::MatchState( Messages::Game::Base::Field( Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size )[] cells, Messages::Game::Base::Node( int32 from, int32 to )[] nodes ) field, Messages::Game::Base::MatchPlayers( Entities::Game::Base::Player[] players ) players, int32 turn_number, int32 turn_player_id )
         #
         def get_state
           return @state
@@ -43,7 +39,7 @@ module Entities
 
           44.times do |x|
             player = @state.players.players[x < 22 ? 0 : 1]
-            @state.field.add_cell(Messages::Game::Base::Cell.new(playerId: player.playerId, armySize: rand(8) + 1 ))
+            @state.field.add_cell(Messages::Game::Base::Cell.new(player_id: player.id, army_size: rand(8) + 1 ))
           end
         end
 
@@ -51,17 +47,17 @@ module Entities
           from_cell = @state.field.get_cell_by_id(from_cell_id)
           to_cell   = @state.field.get_cell_by_id(to_cell_id)
 
-          if from_cell.playerId != player_id
+          if from_cell.player_id != player_id
             p "NOT ALLOWED MOVE - YOU ARE TRYING TO MOVE OPPONETS CELL"
             return
           end
 
-          if to_cell.playerId == player_id
+          if to_cell.player_id == player_id
             p "NOT ALLOWED MOVE - YOU ARE TRYING TO MOVE TO YOUR OWN CELL"
             return
           end
 
-          to_cell.playerId = from_cell.playerId
+          to_cell.player_id = from_cell.player_id
 
           @state.players.players.each do |p|
             self.to(p.connection).update_cell(from_cell)

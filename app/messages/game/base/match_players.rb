@@ -12,12 +12,12 @@ module Messages
         #
 
         def add_player(player)
-          player.playerId = 100 * (players.size + 1)
+          player.id = 100 * (players.size + 1)
           self.players += [ player ]
         end
 
         def get_player_by_id(id)
-          self.players.detect { |x| x.playerId == id }
+          self.players.detect { |x| x.id == id }
         end
 
       end

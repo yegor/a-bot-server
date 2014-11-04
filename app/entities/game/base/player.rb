@@ -8,9 +8,9 @@ module Entities
 
         #  Properties defined on this entity (will be sent to clients):
         #
-        #  playerId: int32
+        #  id: int32
         #
-
+        
         presence :global
 
         attr_accessor :account
@@ -30,7 +30,7 @@ module Entities
         #
         def make_move(from, to)
           p "MAKING MOVE FROM #{from} TO #{to}"
-          match.make_move(self.playerId, from, to)
+          match.make_move(self.id, from, to)
         end
 
         #  Result is:

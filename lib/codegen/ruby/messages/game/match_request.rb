@@ -9,7 +9,7 @@ module Messages
     class MatchRequest; include ProtocolBuffers::Message; clear_fields!; end
 
     class MatchRequest
-      required :int32, :matchType, 1
+      required :int32, :match_type, 1
     end
 
   end

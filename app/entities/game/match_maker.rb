@@ -22,12 +22,12 @@ module Entities
       end
 
       #  Arguments are:
-      #    matchRequest: Messages::Game::MatchRequest( int32 matchType )
+      #    match_request: Messages::Game::MatchRequest( int32 match_type )
       #
       #  Result is:
       #    (void)
       #
-      def find_match(matchRequest)
+      def find_match( match_request )
         account = self.session[:account]
 
         p "FINDING MATCH"

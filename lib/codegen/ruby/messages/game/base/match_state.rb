@@ -12,8 +12,8 @@ module Messages
       class MatchState
         required ::Messages::Game::Base::Field, :field, 1
         required ::Messages::Game::Base::MatchPlayers, :players, 2
-        required :int32, :turnNumber, 3
-        required :int32, :turnPlayerId, 4
+        required :int32, :turn_number, 3
+        required :int32, :turn_player_id, 4
       end
 
     end
