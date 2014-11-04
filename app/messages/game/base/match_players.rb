@@ -13,7 +13,7 @@ module Messages
 
         def add_player(player)
           player.id = 100 * (players.size + 1)
-          self.players += [ player ]
+          self.players << player
         end
 
         def get_player_by_id(id)
