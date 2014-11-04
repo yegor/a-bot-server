@@ -40,6 +40,10 @@ module Entities
           raise NotImplementedError.new
         end
 
+        def connection
+          return self.account.connection
+        end
+
       end
 
     end

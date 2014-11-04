@@ -48,17 +48,26 @@ module Entities
         end
 
         def make_move(player_id, from_cell_id, to_cell_id)
-          p "MATCH MAKE MOVE #{player_id} #{from_cell_id} #{to_cell_id}"
-
           from_cell = @state.field.get_cell_by_id(from_cell_id)
           to_cell   = @state.field.get_cell_by_id(to_cell_id)
 
-          p "from_cell #{from_cell.playerId} #{from_cell.armySize}"
-          p "to_cell   #{to_cell.playerId} #{to_cell.armySize}"
-
           if from_cell.playerId != player_id
-            p "NOT ALLOWED MOVE"
+            p "NOT ALLOWED MOVE - YOU ARE TRYING TO MOVE OPPONETS CELL"
+            return
           end
+
+          if to_cell.playerId == player_id
+            p "NOT ALLOWED MOVE - YOU ARE TRYING TO MOVE TO YOUR OWN CELL"
+            return
+          end
+
+          to_cell.playerId = from_cell.playerId
+
+          @state.players.players.each do |p|
+            self.to(p.connection).update_cell(from_cell)
+            self.to(p.connection).update_cell(to_cell)
+          end
+
         end
 
       end
