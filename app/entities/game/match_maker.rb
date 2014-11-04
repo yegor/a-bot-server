@@ -27,10 +27,9 @@ module Entities
       #  Result is:
       #    (void)
       #
-      def find_match( matchRequest )
+      def find_match(matchRequest)
         account = self.session[:account]
 
-        p account
         p "FINDING MATCH"
 
         self.queue << account
@@ -38,18 +37,25 @@ module Entities
         while self.queue.size >= 2
           p "MATCH FOUND"
 
-          match = ::Entities::Game::Base::Match.new()
-
-          begin
-            self.to(self.queue[0].connection).match_ready( match, ::Entities::Game::Base::Player.new(self.queue[0]) )
-          rescue Phoenix::Entity::Proxies::Client::DeadClientException
+          # check if first client is alive
+          # second just came, we assume he is not dead ;)
+          if not self.queue[0].connection.alive?
             p "FIRST CLIENT IS DEAD"
             self.queue = self.queue[1 .. -1]
             next
           end
 
-          # second just came, we assume he is not dead ;)
-          self.to(self.queue[1].connection).match_ready( match, ::Entities::Game::Base::Player.new(self.queue[1]) )
+          match = ::Entities::Game::Base::Match.new()
+
+          player1 = ::Entities::Game::Base::Player.new(self.queue[0], match)
+          player2 = ::Entities::Game::Base::Player.new(self.queue[1], match)
+
+          match.add_player(player1)
+          match.add_player(player2)
+          match.generate_field()
+
+          self.to(self.queue[0].connection).match_ready(match, player1)
+          self.to(self.queue[1].connection).match_ready(match, player2)
 
           p "MATCH ACTUALLY STARTED"
 

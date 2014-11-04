@@ -6,12 +6,19 @@ module Entities
 
         include ::Phoenix::Entity::Base
 
+        #  Properties defined on this entity (will be sent to clients):
+        #
+        #  playerId: int32
+        #
+
         presence :global
 
         attr_accessor :account
+        attr_accessor :match
 
-        def initialize(account)
+        def initialize(account, match)
           self.account = account
+          self.match = match
         end
 
         #  Arguments are:
@@ -21,8 +28,9 @@ module Entities
         #  Result is:
         #    (void)
         #
-        def make_move( from, to )
-          raise NotImplementedError.new
+        def make_move(from, to)
+          p "MAKING MOVE FROM #{from} TO #{to}"
+          match.make_move(self.playerId, from, to)
         end
 
         #  Result is:

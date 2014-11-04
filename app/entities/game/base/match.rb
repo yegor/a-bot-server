@@ -16,10 +16,7 @@ module Entities
 
         def initialize
           @state = Messages::Game::Base::MatchState.new(
-            field: Messages::Game::Base::Field.new(
-              cells: (0..43).map { |x| Messages::Game::Base::Cell.new( id: x,  playerId: x < 22 ? 1 : 2, armySize: rand(8) + 1 ) },
-              nodes: []
-            ),
+            field: nil,
             players: Messages::Game::Base::MatchPlayers.new(),
             turnNumber: 100,
             turnPlayerId: 500,
@@ -35,6 +32,33 @@ module Entities
         #
         def get_state
           return @state
+        end
+
+        def add_player(player)
+          @state.players.add_player(player)
+        end
+
+        def generate_field
+          @state.field = Messages::Game::Base::Field.new()
+
+          44.times do |x|
+            player = @state.players.players[x < 22 ? 0 : 1]
+            @state.field.add_cell(Messages::Game::Base::Cell.new(playerId: player.playerId, armySize: rand(8) + 1 ))
+          end
+        end
+
+        def make_move(player_id, from_cell_id, to_cell_id)
+          p "MATCH MAKE MOVE #{player_id} #{from_cell_id} #{to_cell_id}"
+
+          from_cell = @state.field.get_cell_by_id(from_cell_id)
+          to_cell   = @state.field.get_cell_by_id(to_cell_id)
+
+          p "from_cell #{from_cell.playerId} #{from_cell.armySize}"
+          p "to_cell   #{to_cell.playerId} #{to_cell.armySize}"
+
+          if from_cell.playerId != player_id
+            p "NOT ALLOWED MOVE"
+          end
         end
 
       end

@@ -12,6 +12,7 @@ module Entities
       class ServerPlayerEndTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
 
       class PlayerPropertiesMessage
+        optional :int32, :playerId, 1
       end
 
       class ServerPlayerMakeMoveRequestMessage

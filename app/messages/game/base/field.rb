@@ -12,6 +12,14 @@ module Messages
         #  nodes: Messages::Game::Base::Node( int32 from, int32 to )[]
         #
 
+        def add_cell(cell)
+          cell.id = 100 * (cells.size + 1)
+          cells << cell
+        end
+
+        def get_cell_by_id(id)
+          cells.detect { |x| x.id == id }
+        end
 
       end
 

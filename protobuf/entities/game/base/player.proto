@@ -1,6 +1,8 @@
 package entities.game.base;
 
 entity Player {
+	property int32 playerId;
+	
 	server MakeMove(int32 from, int32 to) returns;
 	server EndTurn() returns;
 }

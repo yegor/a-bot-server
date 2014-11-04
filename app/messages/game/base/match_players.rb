@@ -11,6 +11,14 @@ module Messages
         #  players: Entities::Game::Base::Player[]
         #
 
+        def add_player(player)
+          player.playerId = 100 * (players.size + 1)
+          self.players += [ player ]
+        end
+
+        def get_player_by_id(id)
+          self.players.detect { |x| x.playerId == id }
+        end
 
       end
 
