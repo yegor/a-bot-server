@@ -41,6 +41,19 @@ module Entities
             player = @state.players.players[x < 22 ? 0 : 1]
             @state.field.add_cell(Messages::Game::Base::Cell.new(player_id: player.id, army_size: rand(8) + 1 ))
           end
+
+          hardcoded_edges = {
+            0 => [14, 17, 26],
+            1 => [40, 41],
+            2 => [ 3,  4,  5],
+            3 => [ 2,  4,  6,  7],
+            4 => [ 2,  3,  5,  6,  7,  8],
+            5 => [ 2,  4,  8,  10, 11],
+            6 => [ 3,  4,  7,  18],
+            7 => [ 4,  3,  6,  8,  18, 20],
+            8 => [ 5,  4,  7,  10, 19, 20],
+          }
+
         end
 
         def make_move(player_id, from_cell_id, to_cell_id)

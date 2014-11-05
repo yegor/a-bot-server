@@ -4,4 +4,5 @@ message Cell {
 	required int32 id = 1;
 	required int32 playerId = 2;
 	required int32 armySize = 3;
+	repeated int32 neighbours = 4;
 }
