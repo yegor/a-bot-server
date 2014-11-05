@@ -11,6 +11,7 @@ module Messages
         #  id: int32
         #  player_id: int32
         #  army_size: int32
+        #  neighbours: int32[]
         #
 
 

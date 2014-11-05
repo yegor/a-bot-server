@@ -13,6 +13,7 @@ module Messages
         required :int32, :id, 1
         required :int32, :player_id, 2
         required :int32, :army_size, 3
+        repeated :int32, :neighbours, 4
       end
 
     end
