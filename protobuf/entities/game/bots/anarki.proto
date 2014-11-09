@@ -1,0 +1,4 @@
+package entities.game.bots;
+
+entity Anarki {
+}

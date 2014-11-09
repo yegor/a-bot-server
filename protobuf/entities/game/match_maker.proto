@@ -9,4 +9,5 @@ entity MatchMaker {
 	client MatchTimedOut();
 
 	server FindMatch(messages.game.MatchRequest matchRequest) returns;
+  server FindMatchWithBot(messages.game.MatchRequest matchRequest) returns;
 }

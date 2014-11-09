@@ -29,7 +29,6 @@ module Entities
         #    (void)
         #
         def make_move(from, to)
-          p "MAKING MOVE FROM #{from} TO #{to}"
           match.make_move(self.id, from, to)
         end
 
@@ -37,7 +36,7 @@ module Entities
         #    (void)
         #
         def end_turn
-          raise NotImplementedError.new
+          match.end_turn
         end
 
         def connection

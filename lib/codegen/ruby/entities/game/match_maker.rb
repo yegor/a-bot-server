@@ -10,6 +10,7 @@ module Entities
     class ClientMatchMakerMatchReadyRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
     class ClientMatchMakerMatchTimedOutRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
     class ServerMatchMakerFindMatchRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+    class ServerMatchMakerFindMatchWithBotRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
 
     class MatchMakerPropertiesMessage
     end
@@ -26,6 +27,10 @@ module Entities
       required ::Messages::Game::MatchRequest, :match_request, 1
     end
 
+    class ServerMatchMakerFindMatchWithBotRequestMessage
+      required ::Messages::Game::MatchRequest, :match_request, 1
+    end
+
     class MatchMaker
       include ProtocolBuffers::Service
       clear_rpcs!
@@ -33,6 +38,7 @@ module Entities
       client_rpc :match_ready, "MatchReady", ::Entities::Game::ClientMatchMakerMatchReadyRequestMessage, ::Phoenix::Messages::Void
       client_rpc :match_timed_out, "MatchTimedOut", ::Entities::Game::ClientMatchMakerMatchTimedOutRequestMessage, ::Phoenix::Messages::Void
       rpc :find_match, "FindMatch", ::Entities::Game::ServerMatchMakerFindMatchRequestMessage, ::Phoenix::Messages::Void
+      rpc :find_match_with_bot, "FindMatchWithBot", ::Entities::Game::ServerMatchMakerFindMatchWithBotRequestMessage, ::Phoenix::Messages::Void
     end
   end
 end
