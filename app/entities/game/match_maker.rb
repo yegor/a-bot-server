@@ -87,7 +87,7 @@ module Entities
         self.to(accounts.first.connection).match_ready(match, player1)
         self.to(accounts.second.connection).match_ready(match, player2)
 
-        match.end_turn
+        match.end_turn(0) # FIXME: OLOLO!!!!!
       end
 
     end

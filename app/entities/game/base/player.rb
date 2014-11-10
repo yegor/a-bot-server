@@ -36,7 +36,7 @@ module Entities
         #    (void)
         #
         def end_turn
-          match.end_turn
+          match.end_turn(self.id)
         end
 
         def connection

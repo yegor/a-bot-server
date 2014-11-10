@@ -105,7 +105,14 @@ module Entities
 
         #  Ends turn by picking next player to perform the turn.
         #
-        def end_turn
+        def end_turn(player_id)
+          logger.debug "[Turn ##{state.turn_number}] End of turn #{state.turn_number}"
+
+          if state.turn_player_id != player_id
+            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to end turn from player #{player_id} while current player is #{state.turn_player_id}"
+            return
+          end
+
           next_player = @state.players.players.detect { |candidate| candidate.id != @state.turn_player_id }
           
           state.turn_player_id = next_player.id
@@ -116,40 +123,79 @@ module Entities
           end
         end
 
+        # Check if move is valid
+        #
+        def move_is_valid(from_cell, to_cell)
+          if from_cell.player_id != state.turn_player_id
+            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move opponent's cell"
+            return false
+          end
+
+          if to_cell.player_id == state.turn_player_id
+            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move own cell"
+            return false
+          end
+
+          if from_cell.neighbours.detect { |id| id == to_cell.id } == nil
+            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move to not neighbour cell"
+            return false
+          end
+
+          return true
+        end
+
+        # Retuns true if from_cell succeeded to capture to_cell 
+        #
+        def victory_conditions(from_cell, to_cell)
+          from_score = (1..from_cell.army_size).to_a.map { rand(8) + 1 }.sum
+          to_score = (1..to_cell.army_size).to_a.map { rand(8) + 1 }.sum
+
+          logger.debug "[Turn ##{state.turn_number}] #{state.turn_player_id} scored #{from_score} against #{to_score}"
+
+          from_score > to_score
+        end
+
+        # Actions performed if attack succeeded
+        #
+        def attack_succeeded(from_cell, to_cell)
+          logger.debug "[Turn ##{state.turn_number}] #{state.turn_player_id} succeeded to capture cell #{to_cell.id}"
+
+          to_cell.player_id = from_cell.player_id
+          to_cell.army_size = [from_cell.army_size - 1, 1].max
+
+          from_cell.army_size = 1
+        end
+
+        # Actions performed if attack failed
+        #
+        def attack_failed(from_cell, to_cell)
+          logger.debug "[Turn ##{state.turn_number}] #{state.turn_player_id} failed to capture cell #{to_cell.id}"
+
+          from_cell.army_size = 1
+        end
+
         #  Makes a move.
         #
         def make_move(player_id, from_cell_id, to_cell_id)
           logger.debug "[Turn ##{state.turn_number}] #{player_id} wants to move from #{from_cell_id} to #{to_cell_id}"
 
+          if state.turn_player_id != player_id
+            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to make a move from player #{player_id} while current player is #{state.turn_player_id}"
+            return
+          end
+
           from_cell = @state.field.get_cell_by_id(from_cell_id)
           to_cell   = @state.field.get_cell_by_id(to_cell_id)
 
-          if state.turn_player_id != player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to make a move when you aren't current player"
+          if not move_is_valid(from_cell, to_cell)
             return
           end
 
-          if from_cell.player_id != player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move opponent's cell"
-            return
+          if victory_conditions(from_cell, to_cell)
+            attack_succeeded(from_cell, to_cell)
+          else
+            attack_failed(from_cell, to_cell)
           end
-
-          if to_cell.player_id == player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move own cell"
-            return
-          end
-
-          from_score = (1..from_cell.army_size).to_a.map { rand(8) + 1 }.sum
-          to_score = (1..to_cell.army_size).to_a.map { rand(8) + 1 }.sum
-
-          logger.debug "[Turn ##{state.turn_number}] #{player_id} scored #{from_score} against #{to_score}"
-
-          if from_score > to_score
-            to_cell.player_id = from_cell.player_id
-            to_cell.army_size = [from_cell.army_size - 1, 1].max
-          end
-
-          from_cell.army_size = 1
 
           state.players.players.each do |p|
             self.to(p.connection).update_cell(from_cell)
