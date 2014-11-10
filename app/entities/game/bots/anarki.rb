@@ -130,7 +130,9 @@ module Entities
         def make_one_move
           enemy_id = nil
 
-          cell = self.match.state.field.cells.detect do |candidate| 
+          cells = self.match.state.field.cells.shuffle
+          
+          cell = cells.detect do |candidate| 
             enemy_id = candidate.neighbours.detect { |id| self.match.state.field.get_cell_by_id(id).player_id != self.player.id }
             candidate.player_id == self.player.id && enemy_id.present?
           end
