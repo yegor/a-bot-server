@@ -27,7 +27,7 @@ module Entities
       #  Result is:
       #    (void)
       #
-      def find_match( match_request )
+      def find_match(match_request)
         account = self.session[:account]
 
         enqueue(account)

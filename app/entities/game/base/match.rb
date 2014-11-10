@@ -103,14 +103,20 @@ module Entities
 
         end
 
+        # Tiny helper
+        #
+        def invalid_turn(error_text)
+          logger.error "[Turn ##{state.turn_number}] [Invalid turn] #{error_text}"
+          return false
+        end
+
         #  Ends turn by picking next player to perform the turn.
         #
         def end_turn(player_id)
           logger.debug "[Turn ##{state.turn_number}] End of turn #{state.turn_number}"
 
           if state.turn_player_id != player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to end turn from player #{player_id} while current player is #{state.turn_player_id}"
-            return
+            return invalid_turn "An attempt to end turn from player #{player_id} while current player is #{state.turn_player_id}"
           end
 
           next_player = @state.players.players.detect { |candidate| candidate.id != @state.turn_player_id }
@@ -127,18 +133,19 @@ module Entities
         #
         def move_is_valid(from_cell, to_cell)
           if from_cell.player_id != state.turn_player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move opponent's cell"
-            return false
+            return invalid_turn "An attempt to move opponent's cell"
           end
 
           if to_cell.player_id == state.turn_player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move own cell"
-            return false
+            return invalid_turn "An attempt to move own cell"
           end
 
           if from_cell.neighbours.detect { |id| id == to_cell.id } == nil
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to move to not neighbour cell"
-            return false
+            return invalid_turn "An attempt to move to not neighbour cell"
+          end
+
+          if from_cell.army_size == 1
+            return invalid_turn "An attempt to attack with army size 1"
           end
 
           return true
@@ -180,8 +187,7 @@ module Entities
           logger.debug "[Turn ##{state.turn_number}] #{player_id} wants to move from #{from_cell_id} to #{to_cell_id}"
 
           if state.turn_player_id != player_id
-            logger.error "[Turn ##{state.turn_number}] [Invalid turn] An attempt to make a move from player #{player_id} while current player is #{state.turn_player_id}"
-            return
+            return invalid_turn "An attempt to make a move from player #{player_id} while current player is #{state.turn_player_id}"
           end
 
           from_cell = @state.field.get_cell_by_id(from_cell_id)
