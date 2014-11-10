@@ -8,6 +8,7 @@ module Entities
       class Anarki
         include ::Phoenix::Entity::Base
         presence :local
+        logger_scope "Anarki"
 
         #  An abstract class, which sole purpose is to act as a dynamic proxy.
         #
@@ -116,7 +117,7 @@ module Entities
             moves -= 1
 
             if moves < 0
-              logger.debug "[Anarki] Done making stupid moves"
+              logger.debug "Done making stupid moves"
               timer.cancel
               player.end_turn
             else
@@ -138,10 +139,10 @@ module Entities
           end
 
           if cell.present?
-            logger.debug "[Anarki] Making move from #{cell.id} onto #{enemy_id}"
+            logger.debug "Making move from #{cell.id} onto #{enemy_id}"
             player.make_move( cell.id, enemy_id )
           else
-            logger.debug "[Anarki] No moves found :("
+            logger.debug "No moves found :("
           end
         end
 
