@@ -136,9 +136,7 @@ module Entities
           state.turn_player_id = next_player.id
           state.turn_number += 1
 
-          state.players.players.each do |p|
-            self.to(p.connection).switch_turn(next_player)
-          end
+          broadcast { |to| to.switch_turn(next_player) }
         end
 
         # Check if move is valid
@@ -215,9 +213,9 @@ module Entities
             attack_failed(from_cell, to_cell)
           end
 
-          state.players.players.each do |p|
-            self.to(p.connection).update_cell(from_cell)
-            self.to(p.connection).update_cell(to_cell)
+          broadcast do |to|
+            to.update_cell(from_cell)
+            to.update_cell(to_cell)
           end
         end
 
@@ -230,10 +228,16 @@ module Entities
             state.field.cells.select { |cell| cell.player_id == player.id }.sample(10).each do |cell|
               cell.army_size = [cell.army_size + 1, 8].min
 
-              state.players.players.each do |p|
-                self.to(p.connection).update_cell(cell)
-              end
+              broadcast { |to| to.update_cell(cell) }
             end
+          end
+        end
+
+        # Send something to all players
+        #
+        def broadcast(players = state.players.players, &block)
+          players.each do |player|
+            yield self.to(player.connection)
           end
         end
 
