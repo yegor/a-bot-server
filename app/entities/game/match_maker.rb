@@ -48,9 +48,9 @@ module Entities
       #
       def find_match_with_bot(match_request)
         account = self.session[:account]
-        bot     = ::Entities::Game::Bots::Anarki.new(self)
+        bots    = 2.times.map { |x| Entities::Game::Bots::Anarki.new(self) }
 
-        start_match([account, bot])
+        start_match([account] + bots)
       end
 
     protected 
@@ -76,18 +76,12 @@ module Entities
       def start_match(accounts, options = {})
         match = ::Entities::Game::Base::Match.new()
 
-        player1 = ::Entities::Game::Base::Player.new(accounts.first, match)
-        player2 = ::Entities::Game::Base::Player.new(accounts.second, match)
+        players = accounts.map { |account| ::Entities::Game::Base::Player.new(account, match) }
 
-        match.add_player(player1)
-        match.add_player(player2)
-
+        players.each { |player| match.add_player(player) }
         match.generate_field
-
-        self.to(accounts.first.connection).match_ready(match, player1)
-        self.to(accounts.second.connection).match_ready(match, player2)
-
-        match.end_turn(0) # FIXME: OLOLO!!!!!
+        match.start
+        players.each { |player| self.to(player.account.connection).match_ready(match, player) }
       end
 
     end

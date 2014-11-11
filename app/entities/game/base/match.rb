@@ -8,7 +8,7 @@ module Entities
 
         presence :global
 
-        attr_reader :state
+        attr_accessor :state
 
         #  Client-side methods available through this entity:
         #
@@ -17,11 +17,11 @@ module Entities
         #
 
         def initialize
-          @state = Messages::Game::Base::MatchState.new(
+          self.state = Messages::Game::Base::MatchState.new(
             field: nil,
             players: Messages::Game::Base::MatchPlayers.new(),
             turn_number: 0,
-            turn_player_id: 500,
+            turn_player_id: 0,
           )
         end
 
@@ -29,13 +29,12 @@ module Entities
         #    Messages::Game::Base::MatchState( Messages::Game::Base::Field( Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size, int32[] neighbours )[] cells ) field, Messages::Game::Base::MatchPlayers( Entities::Game::Base::Player[] players ) players, int32 turn_number, int32 turn_player_id )
         #
         def get_state
-          return @state
+          return state
         end
 
         #  Adds a player to the match.
         #
         def add_player(player)
-          state.turn_player_id = player.id
           state.players.add_player(player)
         end
 
@@ -43,7 +42,7 @@ module Entities
           state.field = Messages::Game::Base::Field.new()
 
           44.times do |x|
-            player = @state.players.players[x < 22 ? 0 : 1]
+            player = state.players.players.sample
             state.field.add_cell(Messages::Game::Base::Cell.new(player_id: player.id, army_size: rand(8) + 1 ))
           end
 
@@ -92,15 +91,21 @@ module Entities
             41 => [33, 32, 40,  1],
             42 => [35, 36, 43, 22],
             43 => [42, 22],
-
           }
 
           hardcoded_edges.each do |key, value|
             value.each do |x|
-              state.field.cells[key].neighbours << @state.field.cells[x].id
+              state.field.cells[key].neighbours << state.field.cells[x].id
             end
           end
 
+        end
+
+        # Called at match start
+        #
+        def start
+          state.turn_player_id = state.players.players.first.id
+          state.turn_number = 1
         end
 
         # Tiny helper
@@ -119,7 +124,8 @@ module Entities
             return invalid_turn "An attempt to end turn from player #{player_id} while current player is #{state.turn_player_id}"
           end
 
-          next_player = @state.players.players.detect { |candidate| candidate.id != @state.turn_player_id }
+          next_player_index = 1 + state.players.players.index { |player| player.id == state.turn_player_id }
+          next_player = state.players.players[next_player_index % state.players.players.size]
           
           state.turn_player_id = next_player.id
           state.turn_number += 1
@@ -140,7 +146,7 @@ module Entities
             return invalid_turn "An attempt to move own cell"
           end
 
-          if from_cell.neighbours.detect { |id| id == to_cell.id } == nil
+          if not from_cell.neighbours.detect { |id| id == to_cell.id }
             return invalid_turn "An attempt to move to not neighbour cell"
           end
 
@@ -190,8 +196,8 @@ module Entities
             return invalid_turn "An attempt to make a move from player #{player_id} while current player is #{state.turn_player_id}"
           end
 
-          from_cell = @state.field.get_cell_by_id(from_cell_id)
-          to_cell   = @state.field.get_cell_by_id(to_cell_id)
+          from_cell = state.field.get_cell_by_id(from_cell_id)
+          to_cell   = state.field.get_cell_by_id(to_cell_id)
 
           if not move_is_valid(from_cell, to_cell)
             return
