@@ -125,7 +125,13 @@ module Entities
           end
 
           next_player_index = 1 + state.players.players.index { |player| player.id == state.turn_player_id }
-          next_player = state.players.players[next_player_index % state.players.players.size]
+
+          if next_player_index == state.players.players.size
+            grow_armies
+            next_player_index = 0
+          end
+
+          next_player = state.players.players[next_player_index]
           
           state.turn_player_id = next_player.id
           state.turn_number += 1
@@ -212,6 +218,22 @@ module Entities
           state.players.players.each do |p|
             self.to(p.connection).update_cell(from_cell)
             self.to(p.connection).update_cell(to_cell)
+          end
+        end
+
+        # Grow armies after all players made their moves
+        #
+        def grow_armies
+          logger.debug "[Turn ##{state.turn_number}] Growing armies"
+
+          state.players.players.each do |player|
+            state.field.cells.select { |cell| cell.player_id == player.id }.sample(10).each do |cell|
+              cell.army_size = [cell.army_size + 1, 8].min
+
+              state.players.players.each do |p|
+                self.to(p.connection).update_cell(cell)
+              end
+            end
           end
         end
 
