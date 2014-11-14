@@ -2,6 +2,7 @@ package entities.game.base;
 
 import "messages/game/base/cell.proto";
 import "messages/game/base/match_state.proto";
+import "messages/geometry/field.proto";
 import "entities/game/base/player.proto";
 
 entity Match {
@@ -9,4 +10,5 @@ entity Match {
 	client SwitchTurn(entities.game.base.Player player);
 
 	server GetState() returns messages.game.base.MatchState;
+	server GetFieldGeometry() returns messages.geometry.Field;
 }

@@ -1,0 +1,7 @@
+package messages.geometry;
+
+import "messages/geometry/cell.proto";
+
+message Field {
+	repeated messages.geometry.Cell cells = 1;
+}

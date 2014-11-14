@@ -1,0 +1,7 @@
+package messages.geometry;
+
+import "messages/geometry/mesh.proto";
+
+message Cell {
+	required messages.geometry.Mesh mesh = 1;
+}

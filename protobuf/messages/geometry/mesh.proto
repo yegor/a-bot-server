@@ -1,0 +1,18 @@
+package messages.geometry;
+
+message Vertex {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message Triangle {
+	required int32 index0 = 1;
+	required int32 index1 = 2;
+	required int32 index2 = 3;
+}
+
+message Mesh {
+	repeated messages.geometry.Vertex vertices = 1;
+	repeated messages.geometry.Triangle triangles = 2;
+}
