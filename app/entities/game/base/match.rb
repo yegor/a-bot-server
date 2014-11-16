@@ -105,7 +105,7 @@ module Entities
         #    Messages::Geometry::Field( Messages::Geometry::Cell( Messages::Geometry::Mesh( Messages::Geometry::Vertex( float x, float y, float z )[] vertices, Messages::Geometry::Triangle( int32 index0, int32 index1, int32 index2 )[] triangles ) mesh )[] cells )
         #
         def get_field_geometry
-          raise NotImplementedError.new
+          return Messages::Geometry::Field.new
         end
 
         # Called at match start
