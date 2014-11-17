@@ -105,7 +105,36 @@ module Entities
         #    Messages::Geometry::Field( Messages::Geometry::Cell( Messages::Geometry::Mesh( Messages::Geometry::Vertex( float x, float y, float z )[] vertices, Messages::Geometry::Triangle( int32 index0, int32 index1, int32 index2 )[] triangles ) mesh )[] cells )
         #
         def get_field_geometry
-          return Messages::Geometry::Field.new
+          field = Messages::Geometry::Field.new
+
+          # cell = Messages::Geometry::Cell.new
+          # mesh = Messages::Geometry::Mesh.new
+
+          # 6.times do |i|
+          #   mesh.vertices << Messages::Geometry::Vertex.new(x: Math.cos(Math::PI / 3.0 * ((i + 0) % 6)), y: 0.0, z: Math.sin(Math::PI / 3.0 * ((i + 0) % 6)))
+          #   mesh.vertices << Messages::Geometry::Vertex.new(x: 0.0, y: 0.0, z: 0.0)
+          #   mesh.vertices << Messages::Geometry::Vertex.new(x: Math.cos(Math::PI / 3.0 * ((i + 1) % 6)), y: 0.0, z: Math.sin(Math::PI / 3.0 * ((i + 1) % 6)))
+
+          #   mesh.triangles << Messages::Geometry::Triangle.new(index0: 3 * i + 0, index1: 3 * i + 1, index2: 3 * i + 2)
+          # end
+          
+          # cell.mesh = mesh
+          # field.cells << cell
+
+          fieldGenerator = ::Entities::Game::Base::Match::FieldGenerator.new(50, 25)
+          logger.debug "fieldGenerator created"
+          
+          fieldGenerator.generate_field()
+          logger.debug "generate_field finished"
+
+          fieldGenerator.compute_meshes()
+          logger.debug "compute_meshes finished"
+
+          fieldGenerator.cells.each do |cell|
+            field.cells << Messages::Geometry::Cell.new(mesh: cell.mesh)
+          end
+
+          return field
         end
 
         # Called at match start

@@ -11,6 +11,8 @@ module Entities
           attr_accessor :x
           attr_accessor :y
           attr_accessor :neighbours
+          attr_accessor :grid_cells
+          attr_accessor :mesh
 
           def initialize(index, color, x, y)
             self.color      = color
@@ -18,6 +20,29 @@ module Entities
             self.x          = x
             self.y          = y
             self.neighbours = Set.new
+            self.grid_cells = []
+          end
+
+          def add_hex(x, y)
+            r = 1
+            center_x = 5 * x
+            center_y = 5 * y
+
+            6.times do |i|
+              mesh.triangles << Messages::Geometry::Triangle.new(index0: mesh.vertices.size + 0, index1: mesh.vertices.size + 1, index2: mesh.vertices.size + 2)
+
+              mesh.vertices << Messages::Geometry::Vertex.new(x: r * Math.cos(Math::PI / 3.0 * ((i + 0) % 6)) + center_x, y: 0.0, z: r * Math.sin(Math::PI / 3.0 * ((i + 0) % 6)) + center_y)
+              mesh.vertices << Messages::Geometry::Vertex.new(x: center_x, y: 0.0, z: center_y)
+              mesh.vertices << Messages::Geometry::Vertex.new(x: r * Math.cos(Math::PI / 3.0 * ((i + 1) % 6)) + center_x, y: 0.0, z: r * Math.sin(Math::PI / 3.0 * ((i + 1) % 6)) + center_y)
+            end
+          end
+
+          def compute_mesh()
+            self.mesh = Messages::Geometry::Mesh.new
+
+            grid_cells.each do |x, y|
+              add_hex(x, y)
+            end
           end
         end
 
@@ -128,7 +153,7 @@ module Entities
             end
           end
 
-          def compute_edges()
+          def compute_edges
             cells.each do |cell|
               neighbours = []
 
@@ -146,6 +171,33 @@ module Entities
 
               cell.neighbours = cell.neighbours.to_a
             end
+          end
+
+          def compute_meshes()
+            cells.each do |cell|
+              for x in 0..width - 1 do
+                for y in 0..height - 1 do
+                  if get_grid_cell_value(x, y) == cell.index
+                    cell.grid_cells << [x, y]
+                  end
+                end
+              end
+
+              cell.compute_mesh()
+            end
+          end
+
+          def generate_field()
+            17.times { |x| add_cell("rgb(0, #{15 * x}, #{255 - 15 * x})") }
+            17.times { |x| add_cell("rgb(#{15 * x}, #{255 - 15 * x}, 0)") }
+
+            for i in 1..100 do
+              cells.each do |cell|
+                expand_cell(cell.index)
+              end
+            end
+
+            # field.compute_edges()
           end
         end
       end

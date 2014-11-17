@@ -1,0 +1,7 @@
+package messages.geometry;
+
+message Triangle {
+	required int32 index0 = 1;
+	required int32 index1 = 2;
+	required int32 index2 = 3;
+}
