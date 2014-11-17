@@ -121,18 +121,23 @@ module Entities
           # cell.mesh = mesh
           # field.cells << cell
 
+          time = Time.now
           fieldGenerator = ::Entities::Game::Base::Match::FieldGenerator.new(50, 25)
-          logger.debug "fieldGenerator created"
-          
-          fieldGenerator.generate_field()
-          logger.debug "generate_field finished"
+          logger.debug "fieldGenerator created - #{Time.now - time}"
 
+          time = Time.now
+          fieldGenerator.generate_field()
+          logger.debug "generate_field finished - #{Time.now - time}"
+
+          time = Time.now
           fieldGenerator.compute_meshes()
-          logger.debug "compute_meshes finished"
+          logger.debug "compute_meshes finished - #{Time.now - time}"
 
           fieldGenerator.cells.each do |cell|
             field.cells << Messages::Geometry::Cell.new(mesh: cell.mesh)
           end
+
+          logger.debug "end"
 
           return field
         end
