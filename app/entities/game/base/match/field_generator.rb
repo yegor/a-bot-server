@@ -25,15 +25,26 @@ module Entities
 
           def add_hex(x, y)
             r = 1
-            center_x = 5 * x
-            center_y = 5 * y
+
+            delta_x = r * 2.0 * Math.sin(Math::PI / 3.0)
+            delta_y = r * 3.0 / 2.0
+
+            offset_x = y % 2 == 0 ? 0.0 : 0.5 * delta_x
+
+            center_x = delta_x * x + offset_x
+            center_y = delta_y * y
 
             6.times do |i|
               mesh.triangles << Messages::Geometry::Triangle.new(index0: mesh.vertices.size + 0, index1: mesh.vertices.size + 1, index2: mesh.vertices.size + 2)
 
-              mesh.vertices << Messages::Geometry::Vertex.new(x: r * Math.cos(Math::PI / 3.0 * ((i + 0) % 6)) + center_x, y: 0.0, z: r * Math.sin(Math::PI / 3.0 * ((i + 0) % 6)) + center_y)
+              x0 = r * Math.cos(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
+              y0 = r * Math.sin(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
+              x1 = r * Math.cos(Math::PI / 3.0 * ((i + 1) % 6) + Math::PI / 6.0)
+              y1 = r * Math.sin(Math::PI / 3.0 * ((i + 1) % 6) + Math::PI / 6.0)
+
+              mesh.vertices << Messages::Geometry::Vertex.new(x: x0 + center_x, y: 0.0, z: y0 + center_y)
               mesh.vertices << Messages::Geometry::Vertex.new(x: center_x, y: 0.0, z: center_y)
-              mesh.vertices << Messages::Geometry::Vertex.new(x: r * Math.cos(Math::PI / 3.0 * ((i + 1) % 6)) + center_x, y: 0.0, z: r * Math.sin(Math::PI / 3.0 * ((i + 1) % 6)) + center_y)
+              mesh.vertices << Messages::Geometry::Vertex.new(x: x1 + center_x, y: 0.0, z: y1 + center_y)
             end
           end
 
