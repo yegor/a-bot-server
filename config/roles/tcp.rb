@@ -11,9 +11,7 @@ Celluloid::IO::Stream.class_eval do
     @write_latch.synchronize do
       while total_written < length
         begin
-          p "syswriting #{remaining.size} bytes to #{@socket}"
           written = write_nonblock(remaining)
-          p "#{written} bytes actually written"
         rescue ::IO::WaitWritable
           wait_writable
           retry
@@ -25,7 +23,6 @@ Celluloid::IO::Stream.class_eval do
         end
 
         total_written += written
-        p "total_written is now #{total_written}"
 
         # FIXME: mutating the original buffer here. Seems bad.
         remaining.slice!(0, written) if written < remaining.length
