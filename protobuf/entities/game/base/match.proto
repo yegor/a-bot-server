@@ -8,6 +8,7 @@ import "entities/game/base/player.proto";
 entity Match {
 	client UpdateCell(messages.game.base.Cell cell);
 	client SwitchTurn(entities.game.base.Player player);
+	client SuccessfulAttack(messages.game.base.Cell fromCell, messages.game.base.Cell toCell);
 
 	server GetState() returns messages.game.base.MatchState;
 	server GetFieldGeometry() returns messages.geometry.Field;
