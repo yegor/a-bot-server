@@ -1,4 +1,4 @@
-rrrmodule Entities
+module Entities
   module Game
     module Bots
 
