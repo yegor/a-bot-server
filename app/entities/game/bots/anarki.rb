@@ -1,4 +1,4 @@
-module Entities
+rrrmodule Entities
   module Game
     module Bots
 
@@ -105,6 +105,12 @@ module Entities
         #  Handles cell update.
         #
         def match_successful_attack(from_cell, to_cell)
+          # we don't handle anything here – we have a quick access to real match entity anyway
+        end
+
+        #  Handles cell update.
+        #
+        def match_unsuccessful_attack(from_cell, to_cell)
           # we don't handle anything here – we have a quick access to real match entity anyway
         end
         
