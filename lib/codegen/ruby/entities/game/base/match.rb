@@ -11,6 +11,7 @@ module Entities
       class ClientMatchUpdateCellRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ClientMatchSwitchTurnRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ClientMatchSuccessfulAttackRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
+      class ClientMatchUnsuccessfulAttackRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerMatchGetStateRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerMatchGetStateResponseMessage; include ProtocolBuffers::Message; clear_fields!; end
       class ServerMatchGetFieldGeometryRequestMessage; include ProtocolBuffers::Message; clear_fields!; end
@@ -28,6 +29,11 @@ module Entities
       end
 
       class ClientMatchSuccessfulAttackRequestMessage
+        required ::Messages::Game::Base::Cell, :from_cell, 1
+        required ::Messages::Game::Base::Cell, :to_cell, 2
+      end
+
+      class ClientMatchUnsuccessfulAttackRequestMessage
         required ::Messages::Game::Base::Cell, :from_cell, 1
         required ::Messages::Game::Base::Cell, :to_cell, 2
       end
@@ -53,6 +59,7 @@ module Entities
         client_rpc :update_cell, "UpdateCell", ::Entities::Game::Base::ClientMatchUpdateCellRequestMessage, ::Phoenix::Messages::Void
         client_rpc :switch_turn, "SwitchTurn", ::Entities::Game::Base::ClientMatchSwitchTurnRequestMessage, ::Phoenix::Messages::Void
         client_rpc :successful_attack, "SuccessfulAttack", ::Entities::Game::Base::ClientMatchSuccessfulAttackRequestMessage, ::Phoenix::Messages::Void
+        client_rpc :unsuccessful_attack, "UnsuccessfulAttack", ::Entities::Game::Base::ClientMatchUnsuccessfulAttackRequestMessage, ::Phoenix::Messages::Void
         rpc :get_state, "GetState", ::Entities::Game::Base::ServerMatchGetStateRequestMessage, ::Entities::Game::Base::ServerMatchGetStateResponseMessage
         rpc :get_field_geometry, "GetFieldGeometry", ::Entities::Game::Base::ServerMatchGetFieldGeometryRequestMessage, ::Entities::Game::Base::ServerMatchGetFieldGeometryResponseMessage
       end

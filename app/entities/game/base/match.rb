@@ -15,6 +15,7 @@ module Entities
         #  update_cell( Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size, int32[] neighbours ) cell )
         #  switch_turn( Entities::Game::Base::Player player )
         #  successful_attack( Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size, int32[] neighbours ) from_cell, Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size, int32[] neighbours ) to_cell )
+        #  unsuccessful_attack( Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size, int32[] neighbours ) from_cell, Messages::Game::Base::Cell( int32 id, int32 player_id, int32 army_size, int32[] neighbours ) to_cell )
         #
 
         def initialize
@@ -259,8 +260,7 @@ module Entities
             attack_failed(from_cell, to_cell)
 
             broadcast do |to|
-              to.update_cell(from_cell)
-              to.update_cell(to_cell)
+              to.unsuccessful_attack(from_cell, to_cell)
             end
           end
         end
