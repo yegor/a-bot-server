@@ -1,0 +1,2 @@
+<%= fetch(:stage) %>:
+  server: "<%= servers_ips("zookeeper", fetch(:stage)).first %>:2181"

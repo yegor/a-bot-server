@@ -1,0 +1,11 @@
+<%= fetch(:stage) %>:
+  adapter: 'mysql2celluloid'
+  host: '<%= servers_ips("db", fetch(:stage)).first %>'
+  database: 'a-bot-<%= fetch(:stage) %>'
+  username: 'app'
+  password: '12313dshfhs!!2@@@@@'
+  reconnect: true
+  write_timeout: 3600
+  read_timeout: 3600
+  variables:
+    group_concat_max_len: 1000000000
