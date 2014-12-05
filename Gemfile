@@ -11,7 +11,7 @@ gem "mysql2celluloid",        github: "yard/mysql2celluloid"
 group :development do
   gem "rasem"
   #cat gem "phoenix",              path: "lib/phoenix"
-  gem "a-bot-cousine",        path: "../a-bot-cousine"
+  #gem "a-bot-cousine",        path: "../a-bot-cousine"
 end
 
 group :production do

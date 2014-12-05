@@ -37,11 +37,12 @@ namespace :bundler do
   task :install do
     on roles fetch(:bundle_roles) do
       within release_path do
-        execute :bundle, "install"
+        execute :bundle, "install", "--without development"
       end
     end
   end
 
-  before "bundler:install",   "rvm1:hook"
+  before "bundler:install", "rvm1:hook"
+  before "deploy:updated",  "bundler:install"
 end
 
