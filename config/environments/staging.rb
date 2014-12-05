@@ -1,0 +1,1 @@
+Phoenix.application.logger.debug "Staging environment (config = #{ config }) at your service!"
