@@ -13,5 +13,8 @@ gem "phoenix",                git: "git@github.com:yegor/phoenix.git"
 group :development do
   gem "rasem"
   gem "a-bot-cousine",        git: "git@github.com:yegor/a-bot-cousine.git"
+
+  # For local development, please uncomment the follwing lines (but never commit those!)
   # gem "phoenix",              path: "lib/phoenix"
+  # gem "a-bot-cousine",        path: "lib/a-bot-cousine"
 end
