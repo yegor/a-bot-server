@@ -1,0 +1,176 @@
+GIT
+  remote: git://github.com/yard/mysql2celluloid.git
+  revision: d76495f05bda149c146d88531f800b433eae8cca
+  specs:
+    mysql2celluloid (0.0.1)
+      activerecord
+      celluloid-io (= 0.15.0)
+      fiber_connection_pool
+      mysql2
+
+GIT
+  remote: git://github.com/yard/ruby-protocol-buffers.git
+  revision: a4cb1790837388eb0019c0ce6ade634fb27f5a33
+  specs:
+    ruby-protocol-buffers (1.6.0)
+
+GIT
+  remote: git@github.com:yegor/a-bot-cousine.git
+  revision: 5806f6ef0865887fbfc7a3ab1b1bc5d7a9044746
+  specs:
+    a-bot-cousine (0.3.47)
+      capistrano
+      capistrano-bundler
+      chef-api
+      rvm1-capistrano3
+
+GIT
+  remote: git@github.com:yegor/phoenix.git
+  revision: abb85ef683886b3b98399b33413003125ad1aaef
+  specs:
+    phoenix (0.0.1)
+      activesupport
+      celluloid (= 0.15.2)
+      celluloid-io (= 0.15.0)
+      colorize
+      dcell
+      fssm
+      ruby-protocol-buffers
+      timers
+      varint
+      zk
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activemodel (4.1.6)
+      activesupport (= 4.1.6)
+      builder (~> 3.1)
+    activerecord (4.1.6)
+      activemodel (= 4.1.6)
+      activesupport (= 4.1.6)
+      arel (~> 5.0.0)
+    activesupport (4.1.6)
+      i18n (~> 0.6, >= 0.6.9)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.1)
+      tzinfo (~> 1.1)
+    arel (5.0.1.20140414130214)
+    builder (3.2.2)
+    capistrano (3.3.3)
+      capistrano-stats (~> 1.0.3)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.3)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-stats (1.0.3)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
+    celluloid-io (0.15.0)
+      celluloid (>= 0.15.0)
+      nio4r (>= 0.5.0)
+    celluloid-redis (0.0.2)
+      celluloid-io (>= 0.13.0.pre)
+      redis
+    celluloid-zmq (0.16.0)
+      celluloid (>= 0.15.0)
+      ffi
+      ffi-rzmq
+    chef-api (0.5.0)
+      logify (~> 0.1)
+      mime-types
+    colorize (0.7.3)
+    dcell (0.15.0)
+      celluloid (>= 0.15.0)
+      celluloid-redis
+      celluloid-zmq (>= 0.15.0)
+      redis-namespace
+      reel
+    diff-lcs (1.2.5)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
+    ffi (1.9.6)
+    ffi-rzmq (2.0.1)
+      ffi-rzmq-core (>= 1.0.1)
+    ffi-rzmq-core (1.0.3)
+      ffi (~> 1.9)
+    fiber_connection_pool (0.3.2)
+    foreman (0.75.0)
+      dotenv (~> 0.11.1)
+      thor (~> 0.19.1)
+    fssm (0.2.10)
+    http (0.6.3)
+      http_parser.rb (~> 0.6.0)
+    http_parser.rb (0.6.0)
+    i18n (0.6.11)
+    json (1.8.1)
+    little-plugger (1.1.3)
+    logging (1.8.2)
+      little-plugger (>= 1.1.3)
+      multi_json (>= 1.8.4)
+    logify (0.2.0)
+    mime-types (2.4.3)
+    minitest (5.4.2)
+    multi_json (1.10.1)
+    mysql2 (0.3.16)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
+    nio4r (1.0.1)
+    rake (10.4.2)
+    rasem (0.6.1)
+    redis (3.1.0)
+    redis-namespace (1.5.1)
+      redis (~> 3.0, >= 3.0.4)
+    reel (0.5.0)
+      celluloid (>= 0.15.1)
+      celluloid-io (>= 0.15.0)
+      http (>= 0.6.0.pre)
+      http_parser.rb (>= 0.6.0)
+      websocket_parser (>= 0.1.6)
+    rspec (3.1.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+    rspec-core (3.1.4)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-mocks (3.1.1)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.0)
+    rvm1-capistrano3 (1.3.2.2)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2)
+    sshkit (1.5.1)
+      colorize
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    thor (0.19.1)
+    thread_safe (0.3.4)
+    timers (1.1.0)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    varint (0.1.0)
+    websocket_parser (0.1.6)
+    zk (1.9.4)
+      logging (~> 1.8.2)
+      zookeeper (~> 1.4.0)
+    zookeeper (1.4.9)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  a-bot-cousine!
+  foreman
+  mysql2celluloid!
+  phoenix!
+  rasem
+  rspec
+  ruby-protocol-buffers!
