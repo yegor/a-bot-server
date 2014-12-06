@@ -10,15 +10,15 @@ GIT
 
 GIT
   remote: git://github.com/yard/ruby-protocol-buffers.git
-  revision: a4cb1790837388eb0019c0ce6ade634fb27f5a33
+  revision: 95cb88c26c8d77edc025fa85151f5ae4b9d0d99d
   specs:
     ruby-protocol-buffers (1.6.0)
 
 GIT
   remote: git@github.com:yegor/a-bot-cousine.git
-  revision: 5806f6ef0865887fbfc7a3ab1b1bc5d7a9044746
+  revision: 005fccc5cb6349e68387dd51157f28251aa2b7ce
   specs:
-    a-bot-cousine (0.3.47)
+    a-bot-cousine (0.3.54)
       capistrano
       capistrano-bundler
       chef-api
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git@github.com:yegor/phoenix.git
-  revision: abb85ef683886b3b98399b33413003125ad1aaef
+  revision: 90a9da3804e3c35a9d4fbe065ed0460b680fbb8b
   specs:
     phoenix (0.0.1)
       activesupport
@@ -114,7 +114,7 @@ GEM
       multi_json (>= 1.8.4)
     logify (0.2.0)
     mime-types (2.4.3)
-    minitest (5.4.2)
+    minitest (5.4.3)
     multi_json (1.10.1)
     mysql2 (0.3.16)
     net-scp (1.2.1)
@@ -168,6 +168,7 @@ PLATFORMS
 
 DEPENDENCIES
   a-bot-cousine!
+  ffi-rzmq
   foreman
   mysql2celluloid!
   phoenix!

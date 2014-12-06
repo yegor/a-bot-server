@@ -34,5 +34,5 @@ before "bundler:install",   "rvm1:hook"
 before "deploy:check",      "abot:ymls"
 after  "deploy:check",      "abot:stop"
 after  "deploy:published",  "abot:services"
-#before "deploy:published",  "abot:start"
+after  "deploy:published",  "abot:start"
 
