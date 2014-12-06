@@ -34,7 +34,7 @@ namespace :abot do
           "PHOENIX_NODE_CONFIG" => {internal_address: server.hostname, internal_port: config[:ports][:dcell] + i, external_address: server.hostname, external_port: config[:ports][:tcp] + i }.to_json
         }.map { |name, value| "export #{name}=#{ Shellwords.escape(value) }" }.join("\n")
 
-        upload! StringIO.new("#!/bin/bash\nexec 2>&1\n\n#{env}\n\ncd #{ release_path }\n~/.rvm/bin/rvm rbx exec bundle exec ruby config/application.rb"), "#{path}/run"
+        upload! StringIO.new("#!/bin/bash\nexec 2>&1\n\n#{env}\n\ncd #{ release_path }\nexec ~/.rvm/bin/rvm rbx exec bundle exec ruby config/application.rb"), "#{path}/run"
         execute :sudo, :chmod, "700 #{path}/run"
 
         execute :mkdir, "-p #{path}/log"
