@@ -3,5 +3,6 @@ ENV["PHOENIX_ROOT"] ||= File.expand_path( File.join(__FILE__, "..", "..") )
 
 require "phoenix/boot.rb"
 
-Signal.trap("INT") { exit }
-sleep
+stop = false
+Signal.trap('INT') { stop = true }
+sleep(1) until stop
