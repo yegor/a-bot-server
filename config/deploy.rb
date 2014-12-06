@@ -5,6 +5,7 @@ lock '3.3.3'
 require "capistrano/setup"
 require "capistrano/deploy"
 require "rvm1/capistrano3"
+require "capistrano/bundler"
 require "capistrano/a_bot_cousine"
 
 # Load custom tasks
@@ -21,28 +22,17 @@ set :linked_dirs,           %w(tmp log)
 set :keep_releases,         5
 set :pty,                   true
 set :bundle_roles,          %w(app db)
+set :bundle_servers,        -> { roles(fetch(:bundle_roles)) }
 
 # RVM configuration
 set :rvm1_ruby_version,     "rbx-2.2.10"
 set :rvm1_auto_script_path, "/tmp"
 set :rvm1_map_bins,         %w{rake gem bundle ruby}
 
-namespace :deploy do
-  # Hooks in da house
-  before "deploy:check",      "abot:ymls"
-end
-
-namespace :bundler do
-  desc "Install gems with bundler."
-  task :install do
-    on roles fetch(:bundle_roles) do
-      within release_path do
-        execute :bundle, "install", "--without development"
-      end
-    end
-  end
-
-  before "bundler:install", "rvm1:hook"
-  before "deploy:updated",  "bundler:install"
-end
+# Hooks in da house
+before "bundler:install",   "rvm1:hook"
+before "deploy:check",      "abot:ymls"
+after  "deploy:check",      "abot:stop"
+after  "deploy:published",  "abot:services"
+#before "deploy:published",  "abot:start"
 
