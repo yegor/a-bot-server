@@ -40,7 +40,4 @@ application.on(:start) do
       server.start Phoenix::Servers::TCP::Handler.new.method(:handle)
     end
   end
-
-  ::Entities::Auth::LoginManager.new
-  ::Entities::Game::MatchMaker.new
 end
