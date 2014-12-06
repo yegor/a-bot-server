@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git@github.com:yegor/phoenix.git
-  revision: 2cfd692d8fa7a8b0d2b2e8ba05df64560efe437e
+  revision: 2e1b2ba377ddd641acd8fa8a86b048d16731c394
   specs:
     phoenix (0.0.1)
       activesupport
