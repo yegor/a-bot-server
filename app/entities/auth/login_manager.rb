@@ -20,7 +20,9 @@ module Entities
       #
       def login( credential )
         p "SOMEBODY IS LOGGING IN"
-        self.session { |data| data[:account] = ::Entities::Auth::Account.new( Fiber.current[:context][:connection] ) }
+        self.session do |data| 
+          data[:account] = ::Entities::Auth::Account.new( Fiber.current[:context][:connection] )
+        end
       end
 
 
