@@ -25,7 +25,7 @@ set :bundle_roles,          %w(app db)
 set :bundle_servers,        -> { roles(fetch(:bundle_roles)) }
 
 # RVM configuration
-set :rvm1_ruby_version,     "rbx-2.2.10"
+set :rvm1_ruby_version,     "2.1.0"
 set :rvm1_auto_script_path, "/tmp"
 set :rvm1_map_bins,         %w{rake gem bundle ruby}
 

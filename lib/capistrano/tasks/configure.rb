@@ -22,7 +22,7 @@ def make_service(name, config)
     "PHOENIX_NODE_CONFIG" => {internal_address: config[:internal_address], internal_port: config[:internal_port], external_address: config[:external_address], external_port: config[:external_port] }.to_json
   }.map { |name, value| "export #{name}=#{ Shellwords.escape(value) }" }.join("\n")
 
-  upload! StringIO.new("#!/bin/bash\nexec 2>&1\n\n#{env}\n\ncd #{ release_path }\nexec ~/.rvm/bin/rvm rbx exec bundle exec ruby config/application.rb"), "#{path}/run"
+  upload! StringIO.new("#!/bin/bash\nexec 2>&1\n\n#{env}\n\ncd #{ release_path }\nexec ~/.rvm/bin/rvm 2.1.0 exec bundle exec ruby config/application.rb"), "#{path}/run"
   execute :sudo, :chmod, "700 #{path}/run"
 
   execute :mkdir, "-p #{path}/log"
