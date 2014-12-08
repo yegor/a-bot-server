@@ -11,6 +11,7 @@ module Messages
     class Mesh
       repeated ::Messages::Geometry::Vertex, :vertices, 1
       repeated ::Messages::Geometry::Triangle, :triangles, 2
+      repeated ::Messages::Geometry::Face, :faces, 3
     end
 
   end

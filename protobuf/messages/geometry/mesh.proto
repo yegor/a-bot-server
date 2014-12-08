@@ -2,8 +2,10 @@ package messages.geometry;
 
 import "messages/geometry/vertex.proto";
 import "messages/geometry/triangle.proto";
+import "messages/geometry/face.proto";
 
 message Mesh {
 	repeated messages.geometry.Vertex vertices = 1;
 	repeated messages.geometry.Triangle triangles = 2;
+	repeated messages.geometry.Face faces = 3;
 }

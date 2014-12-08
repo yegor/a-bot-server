@@ -34,17 +34,31 @@ module Entities
             center_x = delta_x * x + offset_x
             center_y = delta_y * y
 
-            6.times do |i|
-              mesh.triangles << Messages::Geometry::Triangle.new(index0: mesh.vertices.size + 0, index1: mesh.vertices.size + 1, index2: mesh.vertices.size + 2)
+            if !true
+              6.times do |i|
+                mesh.triangles << Messages::Geometry::Triangle.new(index0: mesh.vertices.size + 0, index1: mesh.vertices.size + 1, index2: mesh.vertices.size + 2)
 
-              x0 = r * Math.cos(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
-              y0 = r * Math.sin(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
-              x1 = r * Math.cos(Math::PI / 3.0 * ((i + 1) % 6) + Math::PI / 6.0)
-              y1 = r * Math.sin(Math::PI / 3.0 * ((i + 1) % 6) + Math::PI / 6.0)
+                x0 = r * Math.cos(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
+                y0 = r * Math.sin(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
+                x1 = r * Math.cos(Math::PI / 3.0 * ((i + 1) % 6) + Math::PI / 6.0)
+                y1 = r * Math.sin(Math::PI / 3.0 * ((i + 1) % 6) + Math::PI / 6.0)
 
-              mesh.vertices << Messages::Geometry::Vertex.new(x: x0 + center_x, y: 0.0, z: y0 + center_y)
-              mesh.vertices << Messages::Geometry::Vertex.new(x: center_x, y: 0.0, z: center_y)
-              mesh.vertices << Messages::Geometry::Vertex.new(x: x1 + center_x, y: 0.0, z: y1 + center_y)
+                mesh.vertices << Messages::Geometry::Vertex.new(x: x0 + center_x, y: 0.0, z: y0 + center_y)
+                mesh.vertices << Messages::Geometry::Vertex.new(x: center_x, y: 0.0, z: center_y)
+                mesh.vertices << Messages::Geometry::Vertex.new(x: x1 + center_x, y: 0.0, z: y1 + center_y)
+              end
+            else
+              face = Messages::Geometry::Face.new
+
+              6.times do |i|
+                x0 = r * Math.cos(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
+                y0 = r * Math.sin(Math::PI / 3.0 * ((i + 0) % 6) + Math::PI / 6.0)
+
+                face.indicies << mesh.vertices.size
+                mesh.vertices << Messages::Geometry::Vertex.new(x: x0 + center_x, y: 0.0, z: y0 + center_y)
+              end
+
+              mesh.faces << face
             end
           end
 

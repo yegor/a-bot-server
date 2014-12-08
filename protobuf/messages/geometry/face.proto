@@ -1,0 +1,5 @@
+package messages.geometry;
+
+message Face {
+	repeated int32 indicies = 1;
+}
